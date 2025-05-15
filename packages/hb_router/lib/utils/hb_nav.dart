@@ -1,20 +1,30 @@
 import 'package:flutter/material.dart';
 
-import 'models.dart';
+import 'hb_router.dart';
 
-class Nav {
-  // Navigate pages without context
-  // 全局key，用于无context跳转的情况
-  static final GlobalKey<NavigatorState> navigatorKey =
-      GlobalKey<NavigatorState>();
+/// Animation type for page transitions
+/// 切换页面的动画
+/// none: no animation
+/// fromRight: page slides from right to left
+/// fromLeft: page slides from left to right
+/// fromBottom: page slides from bottom to top
+/// zoomInOut: page zooms in and out
+enum TransitionType { none, fromRight, fromLeft, fromBottom, zoomInOut }
 
+class PageConfig {
+  final Object? arguments;
+  final TransitionType transitionType;
+  const PageConfig({this.arguments, required this.transitionType});
+}
+
+class HbNav {
   /// push page
   static Future<dynamic> push(
     String path, {
     Object? arguments,
     TransitionType transitionType = TransitionType.fromRight,
   }) {
-    return Navigator.of(navigatorKey.currentContext!).pushNamed(
+    return Navigator.of(HbRouter.key.currentContext!).pushNamed(
       path,
       arguments: PageConfig(
         transitionType: transitionType,
@@ -29,7 +39,7 @@ class Nav {
     Object? arguments,
     TransitionType transitionType = TransitionType.fromRight,
   }) {
-    return Navigator.of(navigatorKey.currentContext!).pushReplacementNamed(
+    return Navigator.of(HbRouter.key.currentContext!).pushReplacementNamed(
       path,
       arguments: PageConfig(
         transitionType: transitionType,
@@ -45,7 +55,7 @@ class Nav {
     Object? arguments,
     TransitionType transitionType = TransitionType.none,
   }) {
-    return Navigator.of(navigatorKey.currentContext!).pushNamedAndRemoveUntil(
+    return Navigator.of(HbRouter.key.currentContext!).pushNamedAndRemoveUntil(
       path,
       (_) => false,
       arguments: PageConfig(
@@ -58,7 +68,7 @@ class Nav {
   /// back to the previous page
   /// 无context返回,并指定路由返回多少层，默认返回上一页面, 返回带参数params
   static void back({int count = 1, Object? arguments}) {
-    NavigatorState state = Navigator.of(navigatorKey.currentContext!);
+    NavigatorState state = Navigator.of(HbRouter.key.currentContext!);
     while (count-- > 0) {
       if (state.canPop()) state = state..pop(arguments);
     }

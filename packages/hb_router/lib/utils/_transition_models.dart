@@ -1,20 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// Animation type for page transitions
-/// 切换页面的动画
-/// none: no animation
-/// fromRight: page slides from right to left
-/// fromLeft: page slides from left to right
-/// fromBottom: page slides from bottom to top
-/// zoomInOut: page zooms in and out
-enum TransitionType { none, fromRight, fromLeft, fromBottom, zoomInOut }
-
-class PageConfig {
-  final Object? arguments;
-  final TransitionType transitionType;
-  const PageConfig({this.arguments, required this.transitionType});
-}
-
 /// no-animation page
 /// 不使用页面切换动画
 class NoAnimationPageRoute<T> extends MaterialPageRoute<T> {
