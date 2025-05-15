@@ -32,7 +32,7 @@ MaterialApp(
 // RouteConfig.routes示例
 // arguments是跳转时候的传参
 class RouteConfig {
-  static final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
+  static final Map<String, HbWidgetBuilder> routes = <String, HbWidgetBuilder>{
     '/': (Object? arguments) => const IndexPage(),
     '/order_detail': (Object? arguments) =>
         OrderDetailPage(order: arguments as OrderModel),

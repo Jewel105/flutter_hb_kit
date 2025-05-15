@@ -4,14 +4,14 @@ import 'package:hb_router/hb_router.dart';
 import '../page/page_404.dart';
 import '_transition_models.dart';
 
-typedef WidgetBuilder = Widget Function(Object? arguments);
+typedef HbWidgetBuilder = Widget Function(Object? arguments);
 
 class HbRouter {
   // Navigate pages without context
   // 全局key，用于无context跳转的情况
   static final GlobalKey<NavigatorState> key = GlobalKey<NavigatorState>();
 
-  final Map<String, WidgetBuilder> routes;
+  final Map<String, HbWidgetBuilder> routes;
   final HbMiddleware? middleware;
   const HbRouter(this.routes, {this.middleware});
 
