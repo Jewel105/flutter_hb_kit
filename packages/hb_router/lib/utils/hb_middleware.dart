@@ -5,5 +5,5 @@ abstract class HbMiddleware<T> {
   const HbMiddleware();
 
   /// 执行中间件处理逻辑
-  Widget? excute();
+  Widget? execute();
 }

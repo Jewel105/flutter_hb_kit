@@ -20,7 +20,7 @@ class HbRouter {
     var arguments = pageConfig?.arguments;
     Widget widget = routes[settings.name]?.call(arguments) ?? const Page404();
     // 执行中间件，目前只支持全局中间件
-    widget = middleware?.excute() ?? widget;
+    widget = middleware?.execute() ?? widget;
     return _build(widget, pageConfig?.transitionType);
   }
 

@@ -16,13 +16,17 @@ dependencies:
       path: packages/hb_router
 ```
 2. 初始化
+- 目前只支持一个全局中间件
 ```dart
 import 'package:hb_router/hb_router.dart';
 
 // ...
 MaterialApp(
-  // RouteConfig.routes是您的路由配置
-  onGenerateRoute: HbRouter(RouteConfig.routes).generateRoute,
+  // RouteConfig.routes是您的路由配置，可以设置一个全局中间件middleware
+  onGenerateRoute: HbRouter(
+                    RouteConfig.routes,
+                    middleware: RouterMiddleware(),
+                  ).generateRoute,
   navigatorKey: HbRouter.key,
 );
 //...
