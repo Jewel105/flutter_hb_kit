@@ -1,6 +1,7 @@
 name: hb_widget
 description: "A new Flutter package project."
 version: 0.0.1
+publish_to: 'none'
 homepage:
 
 environment:
@@ -11,7 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_screenutil: ^5.9.3
-
+  hb_router:
+    path: ../hb_router
 
 dev_dependencies:
   flutter_test:
