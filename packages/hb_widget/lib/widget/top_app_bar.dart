@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hb_router/utils/nav.dart';
 
 typedef BackCallback = void Function();
 
@@ -29,7 +30,7 @@ class TopAppBar extends AppBar {
                  if (onBack != null) {
                    onBack();
                  } else {
-                   // Nav.back();
+                   Nav.back();
                  }
                },
                child: Padding(
