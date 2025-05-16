@@ -370,10 +370,16 @@ class HbStyle {
     border: Border.all(color: HbColor.textGrey),
   );
 
-  static BoxDecoration toBoxR8({Color? color}) {
+  static BoxDecoration toBoxR8({
+    Color? color,
+    List<BoxShadow>? boxShadow,
+    Gradient? gradient,
+  }) {
     return BoxDecoration(
       borderRadius: BorderRadius.circular(8.w),
       color: color,
+      boxShadow: boxShadow,
+      gradient: gradient,
     );
   }
 
@@ -386,10 +392,16 @@ class HbStyle {
     border: Border.all(color: HbColor.textGrey),
   );
 
-  static BoxDecoration toBoxR12({Color? color}) {
+  static BoxDecoration toBoxR12({
+    Color? color,
+    List<BoxShadow>? boxShadow,
+    Gradient? gradient,
+  }) {
     return BoxDecoration(
       borderRadius: BorderRadius.circular(12.w),
       color: color,
+      boxShadow: boxShadow,
+      gradient: gradient,
     );
   }
 
@@ -402,10 +414,16 @@ class HbStyle {
     border: Border.all(color: HbColor.textGrey),
   );
 
-  static BoxDecoration toBoxR16({Color? color}) {
+  static BoxDecoration toBoxR16({
+    Color? color,
+    List<BoxShadow>? boxShadow,
+    Gradient? gradient,
+  }) {
     return BoxDecoration(
       borderRadius: BorderRadius.circular(16.w),
       color: color,
+      boxShadow: boxShadow,
+      gradient: gradient,
     );
   }
 }
