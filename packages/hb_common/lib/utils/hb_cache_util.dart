@@ -47,7 +47,10 @@ class HbCacheUtil {
   }
 
   /// 获取文件缓存路径目录
-  String _getCachePath({FileType fileType = FileType.image}) {
+  String _getCachePath({
+    FileType fileType = FileType.image,
+    bool create = true,
+  }) {
     late final String cachePath;
     switch (fileType) {
       case FileType.image:
@@ -60,8 +63,8 @@ class HbCacheUtil {
         cachePath = "/videocache";
     }
     var dir = Directory("${documentsDirectory!.path}$cachePath");
-    if (!dir.existsSync()) {
-      dir.createSync();
+    if (create && !dir.existsSync()) {
+      dir.createSync(recursive: true);
     }
     return cachePath;
   }
@@ -93,21 +96,33 @@ class HbCacheUtil {
     return bytes;
   }
 
-  /// 删除文件
-  // Future deleteBytesToFile({FileType fileType = FileType.image}) async {
-  //   int day = DateTime.now().day;
-  //   if (day == 1 || day == 01) {
-  //     var tempDir = Directory(await _getCachePath(fileType: fileType));
-  //     // 遍历文件夹中的所有文件
-  //     tempDir.listSync().forEach((element) {
-  //       element.deleteSync();
-  //       debugPrint("删除文件成功");
-  //     });
-  //     // //删除目录
-  //     // tempDir.deleteSync();
-  //     // assert(await tempDir.exists() == false);
-  //   }
-  // }
+  /// 删除所有文件
+  Future<void> deleteAllCacheFiles() async {
+    await deleteBytesToFile(fileType: FileType.image);
+    await deleteBytesToFile(fileType: FileType.voice);
+    await deleteBytesToFile(fileType: FileType.video);
+  }
+
+  /// 删除特定类型文件
+  Future<void> deleteBytesToFile({FileType fileType = FileType.image}) async {
+    documentsDirectory ??= await getApplicationSupportDirectory();
+    final String systemDir = documentsDirectory!.path;
+    final String cacheDir = _getCachePath(fileType: fileType, create: false);
+    final Directory dir = Directory("$systemDir$cacheDir");
+
+    if (dir.existsSync()) {
+      for (var file in dir.listSync()) {
+        try {
+          if (file is File) {
+            await file.delete();
+            debugPrint("删除文件成功: ${file.path}");
+          }
+        } catch (e) {
+          debugPrint("删除文件失败: ${file.path}, 错误: $e");
+        }
+      }
+    }
+  }
 
   /// 获取图片，并保存图片到本地，并返回图片
   /// returnAllPath: true全部，false：只返回后半部分
