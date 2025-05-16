@@ -9,11 +9,14 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  crypto: ^3.0.6
   flutter:
     sdk: flutter
   flutter_screenutil: ^5.9.3
+  flutter_svg: ^2.1.0
   hb_router:
     path: ../hb_router
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:

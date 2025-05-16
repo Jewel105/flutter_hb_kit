@@ -6,8 +6,8 @@ typedef BackCallback = void Function();
 
 /// Customized navigation bar
 /// 自定义导航栏
-class TopAppBar extends AppBar {
-  TopAppBar({
+class HbAppBar extends AppBar {
+  HbAppBar({
     super.key,
     super.actions, // Actions on the right side of the AppBar (来自父类的右侧操作按钮组件)
     bool? isCenterTitle, // Whether the title is centered (default: true)

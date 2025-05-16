@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hb_common/extensions/widget_extension.dart';
+import 'package:hb_common/extensions/hb_widget_extension.dart';
 
 typedef FnCallBack = void Function();
 
-class MainButton extends StatelessWidget {
+class HbButton extends StatelessWidget {
   final String textName;
   final Color? bgColor;
   final Color? textColor;
@@ -16,7 +16,7 @@ class MainButton extends StatelessWidget {
   final bool collapseInput;
   final double? fontSize;
 
-  const MainButton({
+  const HbButton({
     super.key,
     required this.textName,
     this.preIcon,

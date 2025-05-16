@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hb_router/hb_router.dart';
 
-import '../page/page_404.dart';
+import '../page/_page_404.dart';
 import '_transition_models.dart';
 
 typedef HbWidgetBuilder = Widget Function(Object? arguments);

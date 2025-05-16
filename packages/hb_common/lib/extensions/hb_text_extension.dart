@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hb_common/app/hb_style.dart';
 
-extension TextExtension on String {
+extension HbTextExtension on String {
   Text toText(
     double fontSize, {
     TextAlign? textAlign,

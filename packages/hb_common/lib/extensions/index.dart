@@ -1,2 +1,2 @@
-export 'text_extension.dart';
-export 'widget_extension.dart';
+export 'hb_text_extension.dart';
+export 'hb_widget_extension.dart';
