@@ -53,3 +53,6 @@ HbNav.push(Routes.orderDetail);
 HbNav.push(Routes.orderDetail, arguments: item);
 ```
 
+
+## hb_common
+基础组件库，包含常用的基础组件， extension，公共样式，工具类等。
