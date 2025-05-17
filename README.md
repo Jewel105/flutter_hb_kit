@@ -56,3 +56,25 @@ HbNav.push(Routes.orderDetail, arguments: item);
 
 ## hb_common
 基础组件库，包含常用的基础组件， extension，公共样式，工具类等。
+
+## hb_qr
+二维码扫描, 生成二维码。
+### 使用方法
+1. 国际化初始化
+```dart
+ MaterialApp(
+  localizationsDelegates: const <LocalizationsDelegate<
+        Object?>>[
+      //...
+      HbQrLocalizations.delegate,
+    ],
+  )
+```
+2. 扫描二维码
+```dart
+final result = await HbQr.scan();
+```
+3. 生成二维码widget
+```dart
+HbQrBox(data: 'https://www.jewel.io');
+```

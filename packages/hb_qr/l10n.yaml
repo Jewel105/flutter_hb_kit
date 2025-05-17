@@ -1,0 +1,8 @@
+arb-dir: lib/l10n
+template-arb-file: intl_en.arb
+synthetic-package: false
+output-dir: lib/localization/intl
+output-localization-file: messages.dart
+output-class: HbQrLocalizationsImpl
+nullable-getter: false
+# flutter gen-l10n 生成语言文件的command

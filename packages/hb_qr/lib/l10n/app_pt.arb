@@ -1,0 +1,6 @@
+{
+  "controllerNotReady": "Controlador não está pronto",
+  "permissionDenied": "Permissão negada",
+  "scanUnsupported": "A digitalização não é suportada neste dispositivo",
+  "genericError": "Erro genérico"
+}

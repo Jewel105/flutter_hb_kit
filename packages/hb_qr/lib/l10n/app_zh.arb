@@ -1,0 +1,6 @@
+{
+  "controllerNotReady": "控制器未准备好",
+  "permissionDenied": "权限被拒绝",
+  "scanUnsupported": "此设备不支持扫描",
+  "genericError": "通用错误"
+}

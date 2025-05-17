@@ -1,0 +1,6 @@
+{
+  "controllerNotReady": "Controller not ready",
+  "permissionDenied": "Permission denied",
+  "scanUnsupported": "Scanning is unsupported on this device",
+  "genericError": "Generic Error"
+}

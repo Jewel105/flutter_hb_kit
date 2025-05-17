@@ -1,0 +1,6 @@
+{
+  "controllerNotReady": "कंट्रोलर तैयार नहीं है",
+  "permissionDenied": "अनुमति अस्वीकार कर दी गई",
+  "scanUnsupported": "इस डिवाइस पर स्कैनिंग समर्थित नहीं है",
+  "genericError": "सामान्य त्रुटि"
+}
