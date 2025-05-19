@@ -152,7 +152,7 @@ class HbDialog {
           width: double.infinity,
           margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 32.w),
           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.w),
-          decoration: HbStyle.toBoxR8(color: HbColor.bgWhite),
+          decoration: HbStyle.toBoxR8(color: HbColor.textBlack),
           child: Row(
             children: [
               Visibility(
