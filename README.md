@@ -56,9 +56,10 @@ HbNav.push(Routes.orderDetail, arguments: item);
 
 ## hb_common
 基础组件库，包含常用的基础组件， extension，公共样式，工具类等。
-1. 国际化初始化
+1. 国际化初始化与初始化dialog
 ```dart
  MaterialApp(
+  builder: HbDialog.setup(),
   localizationsDelegates: const <LocalizationsDelegate<
         Object?>>[
       //...

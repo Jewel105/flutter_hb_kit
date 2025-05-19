@@ -10,9 +10,15 @@ import '../localization/hb_common_localizations.dart';
 typedef CancelFunc = void Function();
 
 class HbDialog {
-  static setup() {}
+  // 初始化
+  static TransitionBuilder setup({String? defaultDialogIcon}) {
+    if (defaultDialogIcon != null) {
+      _defaultDialogIcon = defaultDialogIcon;
+    }
+    return BotToastInit();
+  }
 
-  static const String _defaultDialogIcon = 'assets/svg/icon_tip.svg';
+  static String _defaultDialogIcon = 'assets/svg/icon_tip.svg';
 
   /// 提示框
   static Future<bool?> openDialog({
@@ -135,5 +141,68 @@ class HbDialog {
   /// 关闭loading
   static closeAllLoading() {
     BotToast.closeAllLoading();
+  }
+
+  /// 普通toast
+  static void _showToast(String msg, {Widget? preIcon}) {
+    BotToast.showCustomText(
+      duration: const Duration(milliseconds: 2500),
+      toastBuilder: (void Function() cancelFunc) {
+        return Container(
+          width: double.infinity,
+          margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 32.w),
+          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.w),
+          decoration: HbStyle.toBoxR8(color: HbColor.bgWhite),
+          child: Row(
+            children: [
+              Visibility(
+                visible: preIcon != null,
+                child: Padding(
+                  padding: EdgeInsets.only(right: 8.w),
+                  child: preIcon,
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  msg,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  /// 错误toast
+  static void errorToast(String msg) {
+    _showToast(
+      msg,
+      preIcon: Icon(Icons.cancel_rounded, color: HbColor.textError, size: 18.w),
+    );
+  }
+
+  /// 警告toast
+  static void warnToast(String msg) {
+    _showToast(
+      msg,
+      preIcon: Icon(Icons.error_rounded, color: HbColor.textWarn, size: 18.w),
+    );
+  }
+
+  /// 成功toast
+  static void successToast(String msg) {
+    _showToast(
+      msg,
+      preIcon: Icon(
+        Icons.check_circle_rounded,
+        color: HbColor.textSuccess,
+        size: 18.w,
+      ),
+    );
   }
 }
