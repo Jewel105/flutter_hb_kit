@@ -104,9 +104,3 @@ HbQrBox(data: 'https://www.jewel.io');
 ```dart
 final result = await HbQr.scan();
 ```
-## hb_dio
-### 使用方法
-1. 初始化
-```dart
-HbDio.setup();
-```
