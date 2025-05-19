@@ -56,6 +56,17 @@ HbNav.push(Routes.orderDetail, arguments: item);
 
 ## hb_common
 基础组件库，包含常用的基础组件， extension，公共样式，工具类等。
+1. 国际化初始化
+```dart
+ MaterialApp(
+  localizationsDelegates: const <LocalizationsDelegate<
+        Object?>>[
+      //...
+      HbCommonLocalizations.delegate,
+    ],
+  )
+  <uses-permission android:name="android.permission.CAMERA"/>
+```
 
 ## hb_qr
 二维码扫描, 生成二维码。

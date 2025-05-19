@@ -19,6 +19,13 @@ class PageConfig {
 
 class HbNav {
   /// push page
+  /// Navigates to a new route in the application.
+  ///
+  /// [path] The route path to navigate to.
+  /// [arguments] Optional data to pass to the new route.
+  /// [transitionType] Animation type for the transition (defaults to sliding from right).
+  ///
+  /// Returns a Future that completes when the pushed route is popped.
   static Future<dynamic> push(
     String path, {
     Object? arguments,
@@ -34,6 +41,13 @@ class HbNav {
   }
 
   /// replace page
+  /// Replaces the current route with a new one.
+  ///
+  /// [path] The route path to navigate to.
+  /// [arguments] Optional data to pass to the new route.
+  /// [transitionType] Animation type for the transition (defaults to sliding from right).
+  ///
+  /// Returns a Future that completes when the pushed route is popped.
   static Future<dynamic> replease(
     String path, {
     Object? arguments,
@@ -50,6 +64,12 @@ class HbNav {
 
   /// Navigate to a page and clear the router stack
   /// 清空路由栈跳转，一般用于跳转首页这种情况
+  ///
+  /// [path] The route path to navigate to.
+  /// [arguments] Optional data to pass to the new route.
+  /// [transitionType] Animation type for the transition (defaults to sliding from right).
+  ///
+  /// Returns a Future that completes when the pushed route is popped.
   static Future<dynamic> switchTab(
     String path, {
     Object? arguments,
@@ -67,6 +87,11 @@ class HbNav {
 
   /// back to the previous page
   /// 无context返回,并指定路由返回多少层，默认返回上一页面, 返回带参数params
+  ///
+  /// [count] The number of pages to pop from the stack (default is 1).
+  /// [arguments] Optional data to pass back to the previous route.
+  ///
+  /// Returns a Future that completes when the popped route is removed.
   static void back({int count = 1, Object? arguments}) {
     NavigatorState state = Navigator.of(HbRouter.key.currentContext!);
     while (count-- > 0) {
