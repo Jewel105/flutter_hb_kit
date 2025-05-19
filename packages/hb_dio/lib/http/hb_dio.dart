@@ -77,7 +77,7 @@ class HbDio {
     _dio = Dio(options);
 
     // release
-    if (kReleaseMode && env.envType == EnvType.production) {
+    if (kReleaseMode && env.envType == HbEnvType.production) {
       //生产环境配置http2证书
       // Add http2 client adapter
       _dio.httpClientAdapter = Http2Adapter(
@@ -110,7 +110,7 @@ class HbDio {
 
     // 添加拦截
     // Add interceptors
-    if (env.envType == EnvType.production) {
+    if (env.envType == HbEnvType.production) {
       // 生产环境校验证书，防止中间人攻击
       // Verify the certificate, preventing man-in-the-middle attacks
       _dio.interceptors.add(

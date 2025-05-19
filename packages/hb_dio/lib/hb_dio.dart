@@ -1,5 +1,3 @@
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'http/base_entity.dart';
+export 'http/hb_dio.dart';
+export 'http/hb_dio_env.dart';
