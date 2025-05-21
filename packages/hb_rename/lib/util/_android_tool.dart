@@ -74,6 +74,7 @@ class AndroidTool {
     if (newBundleId == null || oldBundleId == null) {
       return;
     }
+    if (newBundleId == oldBundleId) return;
     final oldPackagePath = oldBundleId.replaceAll('.', '/');
     final oldFilePath =
         './android/app/src/main/kotlin/$oldPackagePath/MainActivity.kt';
@@ -94,7 +95,6 @@ class AndroidTool {
       await newDir.create(recursive: true);
     }
     File(newFilePath).writeAsString(updateContent);
-
     //  删除旧文件和目录
     var oldFile = File(oldFilePath);
     await oldFile.delete();
