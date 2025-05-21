@@ -1,5 +1,7 @@
 import 'package:args/command_runner.dart';
 import 'package:hb_rename/util/_android_tool.dart';
+import 'package:hb_rename/util/_ios_tool.dart';
+import 'package:hb_rename/util/_lib_tool.dart';
 
 // dart run hb_rename all -a MyApp -b com.example.myapp
 class HbRenameCommand extends Command {
@@ -34,7 +36,11 @@ class HbRenameCommand extends Command {
     // parse command line arguments
     String? appName = argResults?['app-name'];
     String? bundleId = argResults?['blundle-id'];
-
+    if (appName == null || bundleId == null) {
+      throw ArgumentError('Both app-name and blundle-id are required.');
+    }
     AndroidTool.resetApp(appName, bundleId);
+    IosTool.resetApp(appName, bundleId);
+    LibTool.resetApp(appName);
   }
 }

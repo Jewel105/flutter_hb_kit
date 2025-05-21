@@ -4,15 +4,9 @@ import 'package:hb_rename/template/_template.dart';
 import 'package:hb_rename/util/_file_util.dart';
 
 class AndroidTool {
-  static void resetApp(String? appName, String? bundleId) {
-    if (bundleId == null && appName == null) {
-      throw Exception('Both bundle ID or app name are required.');
-    }
-
+  static void resetApp(String appName, String bundleId) {
     var oldPackageId = _getOldAppBundleId();
-    if (appName != null) {
-      _replaceAndroidManifest();
-    }
+    _replaceAndroidManifest();
     _replaceBuildGradle(appName, bundleId);
     _replaceMainActivity(bundleId, oldPackageId);
   }
