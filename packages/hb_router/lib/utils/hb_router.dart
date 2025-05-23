@@ -6,11 +6,18 @@ import '_transition_models.dart';
 
 typedef HbWidgetBuilder = Widget Function(Object? arguments);
 
+class CurrentRoute {
+  final String? name;
+  final Object? arguments;
+  final Widget widget;
+  CurrentRoute({this.name, required this.arguments, required this.widget});
+}
+
 class HbRouter {
   // Navigate pages without context
   // 全局key，用于无context跳转的情况
   static final GlobalKey<NavigatorState> key = GlobalKey<NavigatorState>();
-  static String? currentRoute;
+  static CurrentRoute? currentRoute;
 
   final Map<String, HbWidgetBuilder> routes;
   final HbMiddleware? middleware;
@@ -22,7 +29,12 @@ class HbRouter {
     Widget widget = routes[settings.name]?.call(arguments) ?? const Page404();
     // 执行中间件，目前只支持全局中间件
     widget = middleware?.execute() ?? widget;
-    currentRoute = settings.name;
+    // 记录当前路由
+    currentRoute = CurrentRoute(
+      name: settings.name,
+      arguments: arguments,
+      widget: widget,
+    );
     return _build(widget, pageConfig?.transitionType);
   }
 
