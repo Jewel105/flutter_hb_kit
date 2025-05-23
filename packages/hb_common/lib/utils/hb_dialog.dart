@@ -205,4 +205,37 @@ class HbDialog {
       ),
     );
   }
+
+  /// 顶部下拉显示的通知
+  static void notify({
+    required String title,
+    TextStyle? titleStyle,
+    String? subtitle,
+    TextStyle? subtitleStyle,
+    Widget? leading,
+    Color backgroundColor = Colors.white,
+    Duration duration = const Duration(seconds: 4),
+    void Function()? onTap,
+  }) {
+    BotToast.showNotification(
+      title: (context) {
+        return Text(title, style: titleStyle);
+      },
+      subtitle:
+          subtitle == null
+              ? null
+              : (context) {
+                return Text(subtitle, style: subtitleStyle);
+              },
+      leading:
+          leading == null
+              ? null
+              : (context) {
+                return leading;
+              },
+      backgroundColor: backgroundColor,
+      duration: duration,
+      onTap: onTap,
+    );
+  }
 }
