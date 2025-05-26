@@ -131,11 +131,12 @@ class HbDialog {
   }
 
   /// loading
-  static CancelFunc showLoading() {
+  static CancelFunc showLoading({Widget? loadingWidget}) {
     return BotToast.showCustomLoading(
       backgroundColor: HbColor.shadowBlack,
       toastBuilder: (CancelFunc cancel) {
-        return SpinKitChasingDots(color: HbColor.mainDarkColor);
+        return loadingWidget ??
+            SpinKitChasingDots(color: HbColor.mainDarkColor);
       },
     );
   }
