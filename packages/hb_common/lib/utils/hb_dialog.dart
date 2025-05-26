@@ -18,7 +18,7 @@ class HbDialog {
     return BotToastInit();
   }
 
-  static String _defaultDialogIcon = 'assets/svg/icon_tip.svg';
+  static String _defaultDialogIcon = '';
 
   /// 提示框
   static Future<bool?> openDialog({
@@ -65,12 +65,14 @@ class HbDialog {
                     ],
                   ),
                   SizedBox(height: 16.w),
-                  HbIcon(
-                    icon: icon ?? _defaultDialogIcon,
-                    width: 48.w,
-                    height: 48.w,
+                  Visibility(
+                    visible: (icon ?? _defaultDialogIcon).isEmpty,
+                    child: HbIcon(
+                      icon: icon ?? _defaultDialogIcon,
+                      width: 48.w,
+                      height: 48.w,
+                    ).pb(12.w),
                   ),
-                  SizedBox(height: 12.w),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 28.w),
                     child: Text(
