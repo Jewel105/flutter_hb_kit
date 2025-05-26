@@ -17,11 +17,9 @@ class HbQrBox extends StatelessWidget {
           builder: (context) {
             return Center(
               child: Material(
-                child: Center(
-                  child: Container(
-                    color: Colors.white,
-                    child: HbQrBox(data: data, size: 0.9.sw),
-                  ),
+                child: Container(
+                  color: Colors.white,
+                  child: HbQrBox(data: data, size: 0.9.sw),
                 ),
               ),
             );
