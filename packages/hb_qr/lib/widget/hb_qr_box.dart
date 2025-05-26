@@ -19,7 +19,14 @@ class HbQrBox extends StatelessWidget {
               child: Material(
                 child: Container(
                   color: Colors.white,
-                  child: HbQrBox(data: data, size: 0.9.sw),
+                  child: SizedBox(
+                    width: 0.9.sw,
+                    child: QrImageView(
+                      data: data,
+                      size: size,
+                      padding: const EdgeInsets.all(6),
+                    ),
+                  ),
                 ),
               ),
             );
