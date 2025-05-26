@@ -15,10 +15,12 @@ class HbQrBox extends StatelessWidget {
         showDialog(
           context: context,
           builder: (context) {
-            return Center(
-              child: Container(
-                color: Colors.white,
-                child: HbQrBox(data: data, size: 0.9.sw),
+            return Material(
+              child: Center(
+                child: Container(
+                  color: Colors.white,
+                  child: HbQrBox(data: data, size: 0.9.sw),
+                ),
               ),
             );
           },
