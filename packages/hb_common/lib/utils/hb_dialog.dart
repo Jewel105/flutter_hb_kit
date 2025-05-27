@@ -66,7 +66,7 @@ class HbDialog {
                   ),
                   SizedBox(height: 16.w),
                   Visibility(
-                    visible: (icon ?? _defaultDialogIcon).isEmpty,
+                    visible: (icon ?? _defaultDialogIcon).isNotEmpty,
                     child: HbIcon(
                       icon: icon ?? _defaultDialogIcon,
                       width: 48.w,
