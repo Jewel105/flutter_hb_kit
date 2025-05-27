@@ -96,7 +96,7 @@ class HbNav {
     NavigatorState state = Navigator.of(HbRouter.key.currentContext!);
     while (count-- > 0) {
       if (state.canPop()) {
-        HbRouter.history.removeLast();
+        if (HbRouter.history.isNotEmpty) HbRouter.history.removeLast();
         state = state..pop(arguments);
       }
     }
