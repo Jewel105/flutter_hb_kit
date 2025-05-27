@@ -96,7 +96,7 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
             fit: BoxFit.cover,
           ),
           Container(
-            color: Colors.black.withOpacity(0.7),
+            color: Colors.black.withValues(alpha: 0.7 * 255),
             child: SafeArea(
               minimum: EdgeInsets.all(8.w),
               child: const Row(
