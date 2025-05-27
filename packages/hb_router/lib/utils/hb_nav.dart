@@ -95,7 +95,10 @@ class HbNav {
   static void back({int count = 1, Object? arguments}) {
     NavigatorState state = Navigator.of(HbRouter.key.currentContext!);
     while (count-- > 0) {
-      if (state.canPop()) state = state..pop(arguments);
+      if (state.canPop()) {
+        HbRouter.history.removeLast();
+        state = state..pop(arguments);
+      }
     }
   }
 }
