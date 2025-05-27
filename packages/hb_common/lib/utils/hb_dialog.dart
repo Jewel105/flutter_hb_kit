@@ -57,7 +57,7 @@ class HbDialog {
                         right: 16.w,
                         child: GestureDetector(
                           onTap: () {
-                            HbNav.back(arguments: false);
+                            HbNav.pop(arguments: false);
                           },
                           child: Icon(Icons.close, size: 18.sp),
                         ),
@@ -98,7 +98,7 @@ class HbDialog {
                               bgColor: HbColor.bgGrey,
                               textName: cancelText ?? 'Cancel',
                               onTap: () {
-                                HbNav.back(arguments: false);
+                                HbNav.pop(arguments: false);
                               },
                             ),
                           ),
@@ -114,7 +114,7 @@ class HbDialog {
                                 confirmText ??
                                 HbCommonLocalizations.current.confirm,
                             onTap: () {
-                              HbNav.back(arguments: true);
+                              HbNav.pop(arguments: true);
                             },
                           ),
                         ),
