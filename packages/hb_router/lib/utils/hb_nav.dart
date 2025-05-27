@@ -53,6 +53,7 @@ class HbNav {
     Object? arguments,
     TransitionType transitionType = TransitionType.fromRight,
   }) {
+    if (HbRouter.history.isNotEmpty) HbRouter.history.removeLast();
     return Navigator.of(HbRouter.key.currentContext!).pushReplacementNamed(
       path,
       arguments: PageConfig(
@@ -97,6 +98,16 @@ class HbNav {
     while (count-- > 0) {
       if (state.canPop()) {
         if (HbRouter.history.isNotEmpty) HbRouter.history.removeLast();
+        state = state..pop(arguments);
+      }
+    }
+  }
+
+  /// 关闭弹窗
+  static void pop({int count = 1, Object? arguments}) {
+    NavigatorState state = Navigator.of(HbRouter.key.currentContext!);
+    while (count-- > 0) {
+      if (state.canPop()) {
         state = state..pop(arguments);
       }
     }
