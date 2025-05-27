@@ -23,7 +23,7 @@ class HbQrBox extends StatelessWidget {
                     width: 0.9.sw,
                     child: QrImageView(
                       data: data,
-                      size: size,
+                      size: 0.9.sw,
                       padding: const EdgeInsets.all(6),
                     ),
                   ),
