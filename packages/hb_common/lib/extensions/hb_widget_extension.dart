@@ -36,6 +36,8 @@ extension HbWidgetExtension on Widget {
     return Expanded(child: this);
   }
 
+  Widget get toSliver => SliverToBoxAdapter(child: this);
+
   Widget p(double distance) =>
       Padding(padding: EdgeInsets.all(distance), child: this);
 
