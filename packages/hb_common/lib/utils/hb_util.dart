@@ -5,12 +5,15 @@ import 'package:flutter/services.dart';
 import 'package:hb_common/localization/hb_common_localizations.dart';
 import 'package:intl/intl.dart';
 
+import 'hb_dialog.dart';
+
 typedef FormatFn<T> = DateFormat Function([dynamic locale]);
 
 class HbUtil {
   /// 日期格式化；
   /// 不传format，默认格式：2023/10/06 12:56:34，且会根据不同国家显示不同的顺序；
   /// format格式是：DateFormat.yMd DateFormat.Hms等，会根据不同的国家显示不同的格式
+  /// time，可以是 DateTime类型，String，int类型为时间戳
   static String dateTimeFormat(
     BuildContext context, {
     required Object? time,
@@ -29,7 +32,6 @@ class HbUtil {
       }
       dateTime = DateTime.fromMillisecondsSinceEpoch(time);
     }
-
     if (format == null) {
       return DateFormat.yMd(
         HbCommonLocalizations.of(context).localeName,
@@ -41,15 +43,18 @@ class HbUtil {
     }
   }
 
-  // 判断两个 DateTime 是否是同一天
+  /// 判断两个 DateTime 是否是同一天
   static bool isSameDay(DateTime date1, DateTime date2) {
     return date1.year == date2.year &&
         date1.month == date2.month &&
         date1.day == date2.day;
   }
 
-  /// 地址格式化
+  /// 将地址缩短为前几位和后几位，中间用点号替代
   /// 返回格式 0x912C...9E6548
+  /// [address] 需要格式化的地址
+  /// [slot] 中间替代符号，默认为点号
+  /// [digit] 前后保留的位数，默认为6
   static String addressFormat(
     String? address, {
     String slot = '.',
@@ -63,11 +68,11 @@ class HbUtil {
     return str;
   }
 
-  ///取小数点后几位-不四舍五入
+  /// 取小数点后几位-截断保留
   /// @param num 数值
   /// @param location 保留几位小数
   /// @param needThousands 是否需要千位分割。默认需要
-  /// @param remainAvailable 是否计算有效小数。默认不计算
+  /// @param remainAvailable 是否计算有效小数。默认不计算，比如0.0003，小数位是2位，true返回0.0003，false返回0
   /// @param  showBracket 小数多0是否展示括号
   static String formatNum(
     String? num, {
@@ -80,7 +85,7 @@ class HbUtil {
     List<String> list = num.split(".");
     String integerStr = list[0];
     // 千分位分割
-    integerStr = needThousands ? _thousands(integerStr) : integerStr;
+    integerStr = needThousands ? thousands(integerStr) : integerStr;
 
     if (digit == 0) return integerStr; // 不保留小数
 
@@ -95,7 +100,7 @@ class HbUtil {
 
     // 整数部分不为0，或者不计算有效小数
     if (integerStr.replaceAll('0', '').isNotEmpty || !remainAvailable) {
-      integerStr = needThousands ? _thousands(integerStr) : integerStr;
+      integerStr = needThousands ? thousands(integerStr) : integerStr;
       if (decimalStr.length > digit) {
         decimalStr = decimalStr.substring(0, digit); // 保留小数位
         // decimalStr = decimalStr.replaceAll(RegExp(r'0*$'), ''); // 去掉尾部多余的0
@@ -104,7 +109,7 @@ class HbUtil {
     }
 
     // 整数部分为0
-    integerStr = needThousands ? _thousands(integerStr) : integerStr;
+    integerStr = needThousands ? thousands(integerStr) : integerStr;
 
     // 获取小数位数前面的0
     String leadingZero = RegExp(r'^0*').firstMatch(decimalStr)![0] ?? '';
@@ -122,8 +127,8 @@ class HbUtil {
     return '$integerStr.$leadingZero$decimalStr';
   }
 
-  /// 增加千位分割符，接收一个整数字符串参数
-  static String _thousands(String integerStr) {
+  /// 整数增加千位分割符，接收一个整数字符串参数
+  static String thousands(String integerStr) {
     if (integerStr.isEmpty) return '0';
     RegExp regex = RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
     return integerStr.replaceAllMapped(
@@ -207,6 +212,6 @@ class HbUtil {
   /// 复制字符串到剪切板
   static Future<void> copy(String? text) async {
     await Clipboard.setData(ClipboardData(text: text ?? ''));
-    // HbDialog.successToast(HbRouter.key.currentContext!.locale.copySuccess);
+    HbDialog.successToast(HbCommonLocalizations.current.copySuccess);
   }
 }

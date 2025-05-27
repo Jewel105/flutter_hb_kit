@@ -10,4 +10,7 @@ class HbCommonLocalizationsImplZh extends HbCommonLocalizationsImpl {
 
   @override
   String get confirm => '确定';
+
+  @override
+  String get copySuccess => '复制成功';
 }

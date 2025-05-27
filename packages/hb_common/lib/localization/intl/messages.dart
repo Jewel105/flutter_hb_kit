@@ -104,6 +104,12 @@ abstract class HbCommonLocalizationsImpl {
   /// In en, this message translates to:
   /// **'Confirm'**
   String get confirm;
+
+  /// No description provided for @copySuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied successfully'**
+  String get copySuccess;
 }
 
 class _HbCommonLocalizationsImplDelegate extends LocalizationsDelegate<HbCommonLocalizationsImpl> {

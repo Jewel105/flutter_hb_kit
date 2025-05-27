@@ -10,4 +10,7 @@ class HbCommonLocalizationsImplPt extends HbCommonLocalizationsImpl {
 
   @override
   String get confirm => 'Confirmar';
+
+  @override
+  String get copySuccess => 'Copiado com sucesso';
 }

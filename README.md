@@ -45,14 +45,26 @@ class RouteConfig {
 ```
 #### 页面间跳转与传参
 ```dart
-// 返回
+// 页面返回
 HbNav.back(arguments: false);
+// 弹窗关闭
+HbNav.pop(arguments: false);
 // 跳转
 HbNav.push(Routes.orderDetail);
 // 传参
 HbNav.push(Routes.orderDetail, arguments: item);
 ```
+#### 其他信息
 
+```dart
+// 页面路由栈
+print(HbRouter.history)
+// 当前页面
+print(HbRouter.currentRoute)
+// 全局context
+print(HbRouter.key.currentState!.context)
+
+```
 
 ## hb_common
 基础组件库，包含常用的基础组件， extension，公共样式，工具类等。
