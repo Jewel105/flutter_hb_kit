@@ -136,7 +136,7 @@ class HbDialog {
       backgroundColor: HbColor.shadowBlack,
       toastBuilder: (CancelFunc cancel) {
         return loadingWidget ??
-            SpinKitChasingDots(color: HbColor.mainDarkColor);
+            SpinKitFadingCircle(color: HbColor.mainDarkColor);
       },
     );
   }
