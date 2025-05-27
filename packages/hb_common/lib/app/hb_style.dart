@@ -367,7 +367,7 @@ class HbStyle {
 
   static final BoxDecoration boxR8Border = BoxDecoration(
     borderRadius: BorderRadius.circular(8.w),
-    border: Border.all(color: HbColor.textGrey),
+    border: Border.all(color: HbColor.lineGrey),
   );
 
   static BoxDecoration toBoxR8({
@@ -389,7 +389,7 @@ class HbStyle {
 
   static final BoxDecoration boxR12Border = BoxDecoration(
     borderRadius: BorderRadius.circular(12.w),
-    border: Border.all(color: HbColor.textGrey),
+    border: Border.all(color: HbColor.lineGrey),
   );
 
   static BoxDecoration toBoxR12({
@@ -411,7 +411,7 @@ class HbStyle {
 
   static final BoxDecoration boxR16Border = BoxDecoration(
     borderRadius: BorderRadius.circular(16.w),
-    border: Border.all(color: HbColor.textGrey),
+    border: Border.all(color: HbColor.lineGrey),
   );
 
   static BoxDecoration toBoxR16({
