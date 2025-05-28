@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hb_common/app/index.dart';
-import 'package:hb_common/utils/hb_cache.dart';
+import 'package:hb_common/utils/hb_cache_file.dart';
 
 enum IconType { netSvg, localSvg, assetSvg, netImg, localImg }
 
@@ -37,7 +37,7 @@ class HbIcon extends StatefulWidget {
 }
 
 class _HbIconState extends State<HbIcon> {
-  final HbCache _cacheFileUtilImage = HbCache();
+  final HbCacheFile _cacheFileUtilImage = HbCacheFile();
   IconType _iconType = IconType.assetSvg;
   String _iconCachePath = '';
   late final Widget? _errorIcon;

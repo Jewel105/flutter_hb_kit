@@ -9,11 +9,11 @@ import 'package:path_provider/path_provider.dart';
 enum FileType { voice, video, image }
 
 // 缓存图片到本地
-class HbCache {
+class HbCacheFile {
   // 单例模式
-  static HbCache? _instance;
-  factory HbCache() => _instance ??= HbCache._();
-  HbCache._();
+  static HbCacheFile? _instance;
+  factory HbCacheFile() => _instance ??= HbCacheFile._();
+  HbCacheFile._();
 
   static Directory? documentsDirectory;
 

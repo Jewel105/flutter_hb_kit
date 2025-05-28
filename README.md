@@ -72,6 +72,7 @@ print(HbRouter.key.currentState!.context)
 ```dart
  MaterialApp(
   builder: HbDialog.setup(),
+  navigatorObservers: [HbDialog.navigatorObservers],
   localizationsDelegates: const <LocalizationsDelegate<
         Object?>>[
       //...

@@ -5,8 +5,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hb_common/hb_common.dart';
 import 'package:hb_router/hb_router.dart';
 
-import '../localization/hb_common_localizations.dart';
-
 typedef CancelFunc = void Function();
 
 class HbDialog {
@@ -17,6 +15,9 @@ class HbDialog {
     }
     return BotToastInit();
   }
+
+  // navigatorObservers
+  static NavigatorObserver navigatorObservers = BotToastNavigatorObserver();
 
   static String _defaultDialogIcon = '';
 
