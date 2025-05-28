@@ -150,7 +150,7 @@ class _HbListState extends State<HbList> {
 }
 
 class _BottomLoading extends StatelessWidget {
-  const _BottomLoading({super.key});
+  const _BottomLoading();
 
   @override
   Widget build(BuildContext context) {
