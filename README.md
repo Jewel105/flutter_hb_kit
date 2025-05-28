@@ -81,6 +81,12 @@ print(HbRouter.key.currentState!.context)
   )
   <uses-permission android:name="android.permission.CAMERA"/>
 ```
+2. 本地存储
+
+```dart
+await HbStorage.init();
+runApp(const MyApp());
+```
 
 ## hb_qr
 二维码扫描, 生成二维码。
