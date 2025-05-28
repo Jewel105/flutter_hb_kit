@@ -5,7 +5,7 @@ import 'package:hb_common/extensions/hb_widget_extension.dart';
 typedef FnCallBack = void Function();
 
 class HbButton extends StatelessWidget {
-  final String textName;
+  final String text;
   final Color? bgColor;
   final Color? textColor;
   final FnCallBack? onTap;
@@ -18,7 +18,7 @@ class HbButton extends StatelessWidget {
 
   const HbButton({
     super.key,
-    required this.textName,
+    required this.text,
     this.preIcon,
     this.bgColor,
     this.onTap,
@@ -60,7 +60,7 @@ class HbButton extends StatelessWidget {
           children: [
             preIcon != null ? preIcon!.pr(8.w) : const SizedBox(),
             Text(
-              textName,
+              text,
               style: TextStyle(
                 color:
                     onTap == null

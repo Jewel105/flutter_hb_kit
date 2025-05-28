@@ -97,7 +97,7 @@ class HbDialog {
                             child: HbButton(
                               height: 36.w,
                               bgColor: HbColor.bgGrey,
-                              textName: cancelText ?? 'Cancel',
+                              text: cancelText ?? 'Cancel',
                               onTap: () {
                                 HbNav.pop(arguments: false);
                               },
@@ -111,7 +111,7 @@ class HbDialog {
                         Expanded(
                           child: HbButton(
                             height: 36.w,
-                            textName:
+                            text:
                                 confirmText ??
                                 HbCommonLocalizations.current.confirm,
                             onTap: () {
