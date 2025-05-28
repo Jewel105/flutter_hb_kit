@@ -1,0 +1,7 @@
+{
+  "confirm": "Confirmar",
+  "copySuccess": "Copiado com sucesso",
+  "noData": "Sem Dados",
+  "totalTip": "Sem mais registros, total de {count} registros.",
+  "loading": "Carregando..."
+}

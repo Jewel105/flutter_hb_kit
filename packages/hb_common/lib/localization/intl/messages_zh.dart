@@ -13,4 +13,15 @@ class HbCommonLocalizationsImplZh extends HbCommonLocalizationsImpl {
 
   @override
   String get copySuccess => '复制成功';
+
+  @override
+  String get noData => '暂无数据';
+
+  @override
+  String totalTip(int count) {
+    return '没有更多了，共 $count 条记录';
+  }
+
+  @override
+  String get loading => '加载中...';
 }

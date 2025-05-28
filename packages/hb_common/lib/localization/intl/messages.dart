@@ -93,10 +93,10 @@ abstract class HbCommonLocalizationsImpl {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
     Locale('hi'),
     Locale('pt'),
-    Locale('zh'),
-    Locale('en')
+    Locale('zh')
   ];
 
   /// No description provided for @confirm.
@@ -110,6 +110,24 @@ abstract class HbCommonLocalizationsImpl {
   /// In en, this message translates to:
   /// **'Copied successfully'**
   String get copySuccess;
+
+  /// No description provided for @noData.
+  ///
+  /// In en, this message translates to:
+  /// **'No Data'**
+  String get noData;
+
+  /// No description provided for @totalTip.
+  ///
+  /// In en, this message translates to:
+  /// **'No more, a total of {count} records.'**
+  String totalTip(int count);
+
+  /// No description provided for @loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading...'**
+  String get loading;
 }
 
 class _HbCommonLocalizationsImplDelegate extends LocalizationsDelegate<HbCommonLocalizationsImpl> {
@@ -121,7 +139,7 @@ class _HbCommonLocalizationsImplDelegate extends LocalizationsDelegate<HbCommonL
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['hi', 'pt', 'zh', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'hi', 'pt', 'zh'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_HbCommonLocalizationsImplDelegate old) => false;
@@ -132,10 +150,10 @@ HbCommonLocalizationsImpl lookupHbCommonLocalizationsImpl(Locale locale) {
 
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'en': return HbCommonLocalizationsImplEn();
     case 'hi': return HbCommonLocalizationsImplHi();
     case 'pt': return HbCommonLocalizationsImplPt();
     case 'zh': return HbCommonLocalizationsImplZh();
-    case 'en': return HbCommonLocalizationsImplEn();
   }
 
   throw FlutterError(

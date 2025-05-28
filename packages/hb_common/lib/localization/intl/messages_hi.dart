@@ -13,4 +13,15 @@ class HbCommonLocalizationsImplHi extends HbCommonLocalizationsImpl {
 
   @override
   String get copySuccess => 'सफलतापूर्वक कॉपी किया गया';
+
+  @override
+  String get noData => 'कोई डेटा नहीं';
+
+  @override
+  String totalTip(int count) {
+    return 'अधिक नहीं, कुल $count रिकॉर्ड';
+  }
+
+  @override
+  String get loading => 'लोड हो रहा है...';
 }

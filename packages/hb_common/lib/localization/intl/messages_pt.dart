@@ -13,4 +13,15 @@ class HbCommonLocalizationsImplPt extends HbCommonLocalizationsImpl {
 
   @override
   String get copySuccess => 'Copiado com sucesso';
+
+  @override
+  String get noData => 'Sem Dados';
+
+  @override
+  String totalTip(int count) {
+    return 'Sem mais registros, total de $count registros.';
+  }
+
+  @override
+  String get loading => 'Carregando...';
 }

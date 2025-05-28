@@ -1,0 +1,7 @@
+{
+  "confirm": "确定",
+  "copySuccess": "复制成功",
+  "noData": "暂无数据",
+  "totalTip": "没有更多了，共 {count} 条记录",
+  "loading": "加载中..."
+}

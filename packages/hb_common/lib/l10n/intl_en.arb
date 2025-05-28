@@ -1,4 +1,14 @@
 {
   "confirm": "Confirm",
-  "copySuccess": "Copied successfully"
+  "copySuccess": "Copied successfully",
+  "noData": "No Data",
+  "totalTip": "No more, a total of {count} records.",
+  "@totalTip": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "loading": "Loading..."
 }
