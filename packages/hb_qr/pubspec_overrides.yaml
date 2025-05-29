@@ -1,4 +1,0 @@
-# melos_managed_dependency_overrides: hb_router
-dependency_overrides:
-  hb_router:
-    path: ../hb_router
