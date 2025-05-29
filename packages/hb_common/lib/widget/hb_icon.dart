@@ -18,6 +18,7 @@ class HbIcon extends StatefulWidget {
   final BoxFit? fit;
   final GestureTapCallback? onTap;
   final bool rounded;
+  final String? package;
 
   const HbIcon({
     super.key,
@@ -30,6 +31,7 @@ class HbIcon extends StatefulWidget {
     this.fit,
     this.onTap,
     this.rounded = false,
+    this.package,
   });
 
   @override
@@ -154,6 +156,7 @@ class _HbIconState extends State<HbIcon> {
           errorBuilder: (context, _, __) {
             return Image.asset(
               _iconCachePath,
+              package: widget.package,
               width: widget.width,
               height: widget.height,
               fit: widget.fit ?? BoxFit.cover,
@@ -176,6 +179,7 @@ class _HbIconState extends State<HbIcon> {
             return SvgPicture.asset(
               _iconCachePath,
               width: widget.width,
+              package: widget.package,
               height: widget.height,
               colorFilter:
                   widget.color != null

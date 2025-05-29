@@ -87,7 +87,11 @@ class _HbListState extends State<HbList> {
               return Column(
                 children: [
                   widget.noDataWidget ??
-                      HbIcon(icon: "assets/svg/icon_no_data.svg", width: 80.w),
+                      HbIcon(
+                        icon: "assets/svg/icon_no_data.svg",
+                        width: 80.w,
+                        package: 'hb_common',
+                      ),
                   HbCommonLocalizations.current.noData.text12w500Grey().pt(8.w),
                 ],
               ).pt(120.w);
