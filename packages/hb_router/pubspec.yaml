@@ -1,7 +1,6 @@
 name: hb_router
-description: "A new Flutter package project."
+description: "路由管理工具，支持页面间传参，页面间跳转动画，获取当前路由栈等。"
 version: 0.0.1
-homepage:
 
 environment:
   sdk: ">=3.7.0 <4.0.0"
