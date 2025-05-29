@@ -89,9 +89,9 @@ class _HbListState extends State<HbList> {
                   widget.noDataWidget ??
                       HbIcon(
                         icon: "packages/hb_common/assets/svg/icon_no_data.svg",
-                        width: 80.w,
+                        width: 94.w,
                       ),
-                  HbCommonLocalizations.current.noData.text12w500Grey().pt(8.w),
+                  HbCommonLocalizations.current.noData.text14w500Grey().pt(8.w),
                 ],
               ).pt(120.w);
             } else {
