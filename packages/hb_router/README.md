@@ -8,12 +8,7 @@
 
 ```yaml
 dependencies:
-  hb_router:
-    git:
-      url: https://xlnhy.hamber.io/wallet/front/flutter_kit.git
-      # 某次提交的commit，也可以是分支，tag
-      ref: 8b60b11d7fe928431cbd0758f2cda60e5d1ed59e
-      path: packages/hb_router
+  hb_router: 0.0.1
 ```
 
 2. 初始化
