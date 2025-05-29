@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hb_common/extensions/hb_widget_extension.dart';
+
+import '../extensions/hb_widget_extension.dart';
 
 typedef FnCallBack = void Function();
 

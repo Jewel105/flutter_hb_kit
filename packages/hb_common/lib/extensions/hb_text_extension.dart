@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hb_common/app/hb_style.dart';
+
+import '../app/hb_style.dart';
 
 extension HbTextExtension on String {
   Text toText(

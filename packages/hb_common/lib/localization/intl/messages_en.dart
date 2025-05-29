@@ -24,4 +24,13 @@ class HbCommonLocalizationsImplEn extends HbCommonLocalizationsImpl {
 
   @override
   String get loading => 'Loading...';
+
+  @override
+  String get pleaseSelect => 'Please Select';
+
+  @override
+  String get send => 'Send';
+
+  @override
+  String get confirmPasswordError => 'Confirm Password does not match Password';
 }

@@ -24,4 +24,13 @@ class HbCommonLocalizationsImplHi extends HbCommonLocalizationsImpl {
 
   @override
   String get loading => 'लोड हो रहा है...';
+
+  @override
+  String get pleaseSelect => 'कृपया चुनें';
+
+  @override
+  String get send => 'भेजें';
+
+  @override
+  String get confirmPasswordError => 'पासवर्ड पुष्टि मेल नहीं खाती';
 }

@@ -128,6 +128,24 @@ abstract class HbCommonLocalizationsImpl {
   /// In en, this message translates to:
   /// **'Loading...'**
   String get loading;
+
+  /// No description provided for @pleaseSelect.
+  ///
+  /// In en, this message translates to:
+  /// **'Please Select'**
+  String get pleaseSelect;
+
+  /// No description provided for @send.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get send;
+
+  /// No description provided for @confirmPasswordError.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Password does not match Password'**
+  String get confirmPasswordError;
 }
 
 class _HbCommonLocalizationsImplDelegate extends LocalizationsDelegate<HbCommonLocalizationsImpl> {

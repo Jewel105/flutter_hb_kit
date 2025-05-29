@@ -10,5 +10,8 @@
       }
     }
   },
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "pleaseSelect": "Please Select",
+  "send": "Send",
+  "confirmPasswordError": "Confirm Password does not match Password"
 }

@@ -3,8 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hb_common/app/index.dart';
-import 'package:hb_common/utils/hb_cache_file.dart';
+
+import '../app/index.dart';
+import '../utils/hb_cache_file.dart';
 
 enum IconType { netSvg, localSvg, assetSvg, netImg, localImg }
 

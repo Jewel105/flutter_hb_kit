@@ -26,6 +26,7 @@ dependencies:
   encrypt: ^5.0.3
   pointycastle: ^3.9.1
   shared_preferences: ^2.5.3
+  form_builder_validators: ^11.1.2
 
 dev_dependencies:
   flutter_test:

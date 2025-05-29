@@ -3,5 +3,8 @@
   "copySuccess": "सफलतापूर्वक कॉपी किया गया",
   "noData": "कोई डेटा नहीं",
   "totalTip": "अधिक नहीं, कुल {count} रिकॉर्ड",
-  "loading": "लोड हो रहा है..."
+  "loading": "लोड हो रहा है...",
+  "pleaseSelect": "कृपया चुनें",
+  "send": "भेजें",
+  "confirmPasswordError": "पासवर्ड पुष्टि मेल नहीं खाती"
 }

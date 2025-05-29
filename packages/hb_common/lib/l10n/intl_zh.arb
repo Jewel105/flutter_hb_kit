@@ -3,5 +3,8 @@
   "copySuccess": "复制成功",
   "noData": "暂无数据",
   "totalTip": "没有更多了，共 {count} 条记录",
-  "loading": "加载中..."
+  "loading": "加载中...",
+  "pleaseSelect": "请选择",
+  "send": "发送",
+  "confirmPasswordError": "确认密码不匹配"
 }

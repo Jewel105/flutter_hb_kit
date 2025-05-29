@@ -2,8 +2,9 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:hb_common/hb_common.dart';
 import 'package:hb_router/hb_router.dart';
+
+import '../hb_common.dart';
 
 typedef CancelFunc = void Function();
 

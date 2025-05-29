@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hb_common/localization/hb_common_localizations.dart';
 import 'package:intl/intl.dart';
 
+import '../localization/hb_common_localizations.dart';
 import 'hb_dialog.dart';
 
 typedef FormatFn<T> = DateFormat Function([dynamic locale]);

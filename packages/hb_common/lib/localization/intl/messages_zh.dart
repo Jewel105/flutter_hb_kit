@@ -24,4 +24,13 @@ class HbCommonLocalizationsImplZh extends HbCommonLocalizationsImpl {
 
   @override
   String get loading => '加载中...';
+
+  @override
+  String get pleaseSelect => '请选择';
+
+  @override
+  String get send => '发送';
+
+  @override
+  String get confirmPasswordError => '确认密码不匹配';
 }

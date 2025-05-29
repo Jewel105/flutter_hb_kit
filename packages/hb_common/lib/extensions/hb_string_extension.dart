@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:hb_common/utils/hb_util.dart';
+import '../utils/hb_util.dart';
 
 extension HbUtilExtension on String? {
   bool get isEmptyOrNull => this == null || this!.isEmpty || this == '';
