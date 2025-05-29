@@ -1,8 +1,6 @@
 name: hb_qr
-description: "A new Flutter package project."
+description: "快速扫描与识别二维码, 生成二维码。"
 version: 0.0.1
-publish_to: none
-homepage:
 
 environment:
   sdk: ">=3.7.0 <4.0.0"
@@ -13,8 +11,6 @@ dependencies:
     sdk: flutter
   flutter_screenutil: ^5.9.3
   qr_flutter: ^4.1.0
-  hb_router:
-    path: ../hb_router
   image_picker: ^1.1.2
   mobile_scanner: ^7.0.0
   easy_debounce: ^2.0.3

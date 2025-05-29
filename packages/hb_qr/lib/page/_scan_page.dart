@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:easy_debounce/easy_throttle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hb_router/utils/hb_nav.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -31,7 +30,7 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
       Barcode? barcode = barcodes.barcodes.firstOrNull;
       var scanResult = barcode?.rawValue;
       if (scanResult != null) {
-        HbNav.back(arguments: scanResult);
+        Navigator.of(context).pop(scanResult);
       }
     });
   }
@@ -99,10 +98,10 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
             color: Colors.black.withValues(alpha: 0.7 * 255),
             child: SafeArea(
               minimum: EdgeInsets.all(8.w),
-              child: const Row(
+              child: Row(
                 children: [
                   IconButton(
-                    onPressed: HbNav.back,
+                    onPressed: Navigator.of(context).pop,
                     icon: Icon(Icons.arrow_back_ios, color: Colors.white),
                   ),
                 ],
