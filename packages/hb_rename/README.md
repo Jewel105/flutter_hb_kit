@@ -1,39 +1,23 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+## hb_rename
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+> 一键更改 app 名称，多环境配置，packageId，目前仅支持初始化时使用，多次使用会存在重复代码，需要手动清理
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+### 使用方法
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+1. 下载到开发依赖
 
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```yaml
+dev_dependencies:
+  hb_rename:
+    git:
+      url: https://xlnhy.hamber.io/wallet/front/flutter_kit.git
+      # 某次提交的commit，也可以是分支，tag
+      ref: 8b60b11d7fe928431cbd0758f2cda60e5d1ed59e
+      path: packages/hb_rename
 ```
 
-## Additional information
+2. 项目根目录下使用
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```shell
+dart run hb_rename all -a HamBit -b com.hambit.equipment
+```

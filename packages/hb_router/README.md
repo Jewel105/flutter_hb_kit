@@ -1,39 +1,75 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+## hb_router
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+路由管理工具，支持页面间传参，页面间跳转动画。
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+### 使用方法
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+1. 安装
 
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```yaml
+dependencies:
+  hb_router:
+    git:
+      url: https://xlnhy.hamber.io/wallet/front/flutter_kit.git
+      # 某次提交的commit，也可以是分支，tag
+      ref: 8b60b11d7fe928431cbd0758f2cda60e5d1ed59e
+      path: packages/hb_router
 ```
 
-## Additional information
+2. 初始化
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+- 目前只支持一个全局中间件
+
+```dart
+import 'package:hb_router/hb_router.dart';
+
+// ...
+MaterialApp(
+  // RouteConfig.routes是您的路由配置，可以设置一个全局中间件middleware
+  onGenerateRoute: HbRouter(
+                    RouteConfig.routes,
+                    middleware: RouterMiddleware(),
+                  ).generateRoute,
+  navigatorKey: HbRouter.key,
+);
+//...
+```
+
+#### 路由配置
+
+```dart
+// RouteConfig.routes示例
+// arguments是跳转时候的传参
+class RouteConfig {
+  static final Map<String, HbWidgetBuilder> routes = <String, HbWidgetBuilder>{
+    '/': (Object? arguments) => const IndexPage(),
+    '/order_detail': (Object? arguments) =>
+        OrderDetailPage(order: arguments as OrderModel),
+  };
+}
+```
+
+#### 页面间跳转与传参
+
+```dart
+// 页面返回
+HbNav.back(arguments: false);
+// 弹窗关闭
+HbNav.pop(arguments: false);
+// 跳转
+HbNav.push(Routes.orderDetail);
+// 传参
+HbNav.push(Routes.orderDetail, arguments: item);
+```
+
+#### 其他信息
+
+```dart
+// 页面路由栈
+print(HbRouter.history)
+// 当前页面
+print(HbRouter.currentRoute)
+// 全局context
+print(HbRouter.key.currentState!.context)
+
+```

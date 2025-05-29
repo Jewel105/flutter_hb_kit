@@ -1,39 +1,103 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+## hb_common
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+基础组件库，包含常用的基础组件， extension，公共样式，工具类等。
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+1. 国际化初始化与初始化 dialog
 
 ```dart
-const like = 'sample';
+ MaterialApp(
+  builder: HbDialog.setup(),
+  navigatorObservers: [HbDialog.navigatorObservers],
+  localizationsDelegates: const <LocalizationsDelegate<
+        Object?>>[
+      //...
+      HbCommonLocalizations.delegate,
+    ],
+  )
+  <uses-permission android:name="android.permission.CAMERA"/>
 ```
 
-## Additional information
+2. 本地存储
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+await HbStorage.init();
+runApp(const MyApp());
+```
+
+3. 通用列表，包含下拉刷新，上拉加载更多，回到顶部
+
+- 使用
+
+```dart
+// 初始化分页入参的json key
+HbPageApiCall.setUp(pageKey: "page", pageSizeKey: 'size');
+// 实现model，后端分页的json需要继承HbPageModel
+class PageModel implements HbPageModel {
+  // 这里可以根据自动生成的json model进行修改
+}
+
+
+// 使用
+ final HbPageApiCall<OrderModel> pageApiCall =
+      HbPageApiCall<OrderModel>(Api.getList);
+// Api.getList的类型是：Future<PageModel> getList(Map<String, dynamic> rowData)
+
+// 下拉刷新
+Future<void> _onRefresh() async {
+  if (mounted) setState(() {});
+  pageApiCall.refresh();
+  await _loadMore();
+}
+
+// 上拉加载更多
+Future<void> _loadMore() async {
+  await pageApiCall.loadMore();
+  if (mounted) setState(() {});
+}
+
+HbList(
+  itemCount: pageApiCall.items.length,
+  hasMore: pageApiCall.hasMore,
+  loadMore: _loadMore,
+  onRefresh: _onRefresh,
+  skeleton: const OrderSkeleton(),
+  itemBuilder: (context, index) {
+    final item = pageApiCall.items[index];
+    return OrderItem(item: item).onInkTap(() {
+      HbNav.push(Routes.orderDetail, arguments: item);
+    });
+  },
+),
+```
+
+4. 表单工具
+```dart
+// 第一步：继承选项model
+// 这里可以根据自动生成的json model进行修改
+class SelectItemModel implements HbSelectItemModel {}
+
+// 使用
+final HbFormController _form = HbFormController();
+
+void _submit() {
+  if (!_form.validate()) return;
+  // 处理你的逻辑
+}
+
+FormSchema(formController: _form, children: [
+  HbSelect(
+    label: context.locale.token,
+    radioController: widget.tokenController,
+    enabled: false,
+    selectItems: tokenListFromProvider,
+  ),
+  HbInput(
+    label: context.locale.amount,
+    controller: widget.amountController,
+    hintText: context.locale.enterAmount,
+    keyboardType: const TextInputType.numberWithOptions(
+        decimal: true),
+    inputFormatters: [HbAmountFormatter(digit: 6)],
+  ),
+]);
+```

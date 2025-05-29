@@ -1,39 +1,51 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+## hb_qr
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+二维码扫描, 生成二维码。
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+### 使用方法
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+#### 生成二维码
 
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+1. 生成二维码 widget
 
 ```dart
-const like = 'sample';
+HbQrBox(data: 'https://www.jewel.io');
 ```
 
-## Additional information
+#### 扫描二维码
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+- 需要添加权限和国际化配置
+
+1. 国际化初始化
+
+```dart
+ MaterialApp(
+  localizationsDelegates: const <LocalizationsDelegate<
+        Object?>>[
+      //...
+      HbQrLocalizations.delegate,
+    ],
+  )
+  <uses-permission android:name="android.permission.CAMERA"/>
+```
+
+2. 权限配置
+
+- Android， AndroidManifest.xml
+
+```xml
+<uses-permission android:name="android.permission.CAMERA"/>
+```
+
+- iOS，ios/Runner/Info.plist
+
+```plist
+<key>NSCameraUsageDescription</key>
+<string>我们需要使用摄像头来扫描二维码</string>
+```
+
+3. 使用：扫描二维码
+
+```dart
+final result = await HbQr.scan();
+```

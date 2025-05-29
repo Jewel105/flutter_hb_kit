@@ -150,6 +150,38 @@ HbList(
 ),
 ```
 
+4. 表单工具
+```dart
+// 第一步：继承选项model
+// 这里可以根据自动生成的json model进行修改
+class SelectItemModel implements HbSelectItemModel {}
+
+// 使用
+final HbFormController _form = HbFormController();
+
+void _submit() {
+  if (!_form.validate()) return;
+  // 处理你的逻辑
+}
+
+FormSchema(formController: _form, children: [
+  HbSelect(
+    label: context.locale.token,
+    radioController: widget.tokenController,
+    enabled: false,
+    selectItems: tokenListFromProvider,
+  ),
+  HbInput(
+    label: context.locale.amount,
+    controller: widget.amountController,
+    hintText: context.locale.enterAmount,
+    keyboardType: const TextInputType.numberWithOptions(
+        decimal: true),
+    inputFormatters: [HbAmountFormatter(digit: 6)],
+  ),
+]);
+```
+
 ## hb_qr
 
 二维码扫描, 生成二维码。
