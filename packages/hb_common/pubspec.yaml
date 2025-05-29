@@ -1,8 +1,6 @@
 name: hb_common
-description: "A new Flutter package project."
+description: "基础组件库，包含常用的基础组件， extension，公共样式，工具类等"
 version: 0.0.1
-publish_to: none
-homepage:
 
 environment:
   sdk: ">=3.7.0 <4.0.0"
@@ -16,8 +14,7 @@ dependencies:
   flutter_screenutil: ^5.9.3
   flutter_spinkit: ^5.2.1
   flutter_svg: ^2.1.0
-  hb_router:
-    path: ../hb_router
+  hb_router: ^0.0.1
   path_provider: ^2.1.5
   flutter_localizations:
     sdk: flutter
@@ -29,8 +26,6 @@ dependencies:
   form_builder_validators: ^11.1.2
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
   flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
