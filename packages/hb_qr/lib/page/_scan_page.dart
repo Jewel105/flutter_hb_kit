@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:easy_debounce/easy_throttle.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -26,11 +27,14 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
 
   /// When detected a barcode, navigate back with the result
   void _handleBarcode(BarcodeCapture barcodes) {
-    EasyThrottle.throttle('SCANHANDLERTAG', Durations.extralong4, () {
+    EasyThrottle.throttle('SCAN_HANDLER_TAG', Durations.extralong4, () {
       Barcode? barcode = barcodes.barcodes.firstOrNull;
       var scanResult = barcode?.rawValue;
       if (scanResult != null) {
         Navigator.of(context).pop(scanResult);
+      } else {
+        // QR code not detected
+        Navigator.of(context).pop();
       }
     });
   }
@@ -40,7 +44,13 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     _subscription = controller.barcodes.listen(_handleBarcode);
-    unawaited(controller.start());
+    // unawaited(controller.start());
+    // WidgetsBinding.instance.addPostFrameCallback((_) {});
+    // Future.microtask(() => unawaited(controller.start()));
+    // 等待 MobileScanner widget 构建完成
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      unawaited(controller.start());
+    });
   }
 
   @override
@@ -71,7 +81,7 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
       return;
     }
     final BarcodeCapture? barcodes = await controller.analyzeImage(image.path);
-    if (barcodes == null || barcodes.barcodes.isEmpty) return;
+    if (barcodes == null) return;
     _handleBarcode(barcodes);
   }
 
@@ -82,78 +92,85 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
       width: 250.w,
       height: 250.w,
     );
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          MobileScanner(
-            scanWindow: scanWindow,
-            controller: controller,
-            errorBuilder: (context, error) {
-              return ScannerErrorWidget(error: error);
-            },
-            fit: BoxFit.cover,
-          ),
-          Container(
-            color: Colors.black.withValues(alpha: 0.7 * 255),
-            child: SafeArea(
-              minimum: EdgeInsets.all(8.w),
-              child: Row(
-                children: [
-                  IconButton(
-                    onPressed: Navigator.of(context).pop,
-                    icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-                  ),
-                ],
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light, // Android 白色图标
+        statusBarBrightness: Brightness.dark, // iOS 白色文字
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.black,
+        body: Stack(
+          children: [
+            MobileScanner(
+              scanWindow: scanWindow,
+              controller: controller,
+              errorBuilder: (context, error) {
+                return ScannerErrorWidget(error: error);
+              },
+              fit: BoxFit.cover,
+            ),
+            Container(
+              color: Colors.black.withAlpha(150),
+              child: SafeArea(
+                minimum: EdgeInsets.all(8.w),
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: Navigator.of(context).pop,
+                      icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          ValueListenableBuilder(
-            valueListenable: controller,
-            builder: (context, value, child) {
-              if (!value.isInitialized ||
-                  !value.isRunning ||
-                  value.error != null) {
-                return const SizedBox();
-              }
-              return CustomPaint(
-                painter: ScannerOverlay(scanWindow: scanWindow),
-              );
-            },
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: SafeArea(
-              minimum: EdgeInsets.fromLTRB(32.w, 32.w, 32.w, 48.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(8.w),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.black.withOpacity(0.7),
+            ValueListenableBuilder(
+              valueListenable: controller,
+              builder: (context, value, child) {
+                if (!value.isInitialized ||
+                    !value.isRunning ||
+                    value.error != null) {
+                  return const SizedBox();
+                }
+                return CustomPaint(
+                  painter: ScannerOverlay(scanWindow: scanWindow),
+                );
+              },
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: SafeArea(
+                minimum: EdgeInsets.fromLTRB(32.w, 32.w, 32.w, 48.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(8.w),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.black.withAlpha(150),
+                      ),
+                      child: ToggleFlashlightButton(controller: controller),
                     ),
-                    child: ToggleFlashlightButton(controller: controller),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(6.w),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.black.withOpacity(0.7),
+                    Container(
+                      padding: EdgeInsets.all(6.w),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.black.withAlpha(150),
+                      ),
+                      child: IconButton(
+                        color: Colors.white,
+                        icon: const Icon(Icons.image_outlined),
+                        iconSize: 36.w,
+                        onPressed: _chooseImage,
+                      ),
                     ),
-                    child: IconButton(
-                      color: Colors.white,
-                      icon: const Icon(Icons.image_outlined),
-                      iconSize: 36.w,
-                      onPressed: _chooseImage,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

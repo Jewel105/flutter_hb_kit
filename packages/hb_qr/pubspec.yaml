@@ -1,6 +1,6 @@
 name: hb_qr
 description: "快速扫描与识别二维码, 生成二维码。"
-version: 0.0.1
+version: 0.0.2
 
 environment:
   sdk: ">=3.7.0 <4.0.0"
@@ -58,3 +58,6 @@ flutter:
   #
   # For details regarding fonts in packages, see
   # https://flutter.dev/to/font-from-package
+platforms:
+  android:
+  ios:

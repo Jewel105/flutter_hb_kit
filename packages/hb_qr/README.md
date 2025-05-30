@@ -26,7 +26,6 @@ HbQrBox(data: 'https://www.jewel.io');
       HbQrLocalizations.delegate,
     ],
   )
-  <uses-permission android:name="android.permission.CAMERA"/>
 ```
 
 2. 权限配置
@@ -48,4 +47,5 @@ HbQrBox(data: 'https://www.jewel.io');
 
 ```dart
 final result = await HbQr.scan();
+// result如果为空则表示没有识别到二维码
 ```
