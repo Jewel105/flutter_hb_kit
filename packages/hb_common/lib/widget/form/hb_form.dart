@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'hb_form_model.dart';
 
-class FormSchema extends StatelessWidget {
+class HbForm extends StatelessWidget {
   final List<Widget> children;
   final HbFormController? formController;
 
-  const FormSchema({super.key, required this.children, this.formController});
+  const HbForm({super.key, required this.children, this.formController});
 
   @override
   Widget build(BuildContext context) {

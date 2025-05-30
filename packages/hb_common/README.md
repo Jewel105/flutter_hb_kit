@@ -84,7 +84,7 @@ void _submit() {
   // 处理你的逻辑
 }
 
-FormSchema(formController: _form, children: [
+HbForm(formController: _form, children: [
   HbSelect(
     label: context.locale.token,
     radioController: widget.tokenController,
