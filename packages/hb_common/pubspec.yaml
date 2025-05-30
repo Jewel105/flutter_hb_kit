@@ -1,6 +1,6 @@
 name: hb_common
 description: "基础组件库，包含常用的基础组件， extension，公共样式，工具类等"
-version: 0.0.2
+version: 0.0.2+1
 
 environment:
   sdk: ">=3.7.0 <4.0.0"
@@ -18,7 +18,6 @@ dependencies:
   path_provider: ^2.1.5
   flutter_localizations:
     sdk: flutter
-  intl: ^0.19.0
   decimal: ^3.0.2
   encrypt: ^5.0.3
   pointycastle: ^3.9.1
