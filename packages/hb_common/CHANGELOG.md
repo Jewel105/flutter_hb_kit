@@ -1,3 +1,7 @@
-## 0.0.1
+## 0.0.2 - 2025-05-30
 
-* TODO: Describe initial release.
+* Change `FormSchema` to `HbForm`
+
+## 0.0.1 - 2025-05-29
+
+* Initial release of `hb_common`
