@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:form_builder_validators/localization/l10n.dart';
 
 import 'intl/messages.dart';
 import 'intl/messages_en.dart';
@@ -32,9 +33,7 @@ class HbCommonLocalizations {
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
         delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
+        FormBuilderLocalizations.delegate,
       ];
 
   /// The supported locales.
@@ -66,6 +65,7 @@ class HbCommonLocalizationsDelegate
       locale,
     );
     HbCommonLocalizations.setCurrentInstance(instance);
+
     return SynchronousFuture<HbCommonLocalizationsImpl>(instance);
   }
 

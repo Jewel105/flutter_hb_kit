@@ -112,7 +112,7 @@ HbForm(formController: _form, children: [
   localizationsDelegates: const <LocalizationsDelegate<
         Object?>>[
       //...兼容hbcommon的国际化
-      HbCommonLocalizations.delegate,
+       ...HbCommonLocalizations.localizationsDelegates,
     ],
   )
 ```
