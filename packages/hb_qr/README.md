@@ -39,9 +39,22 @@ HbQrBox(data: 'https://www.jewel.io');
 - iOS，ios/Runner/Info.plist
 
 ```plist
-<key>NSCameraUsageDescription</key>
-<string>我们需要使用摄像头来扫描二维码</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs camera access to scan QR codes</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs photos access to get QR code from photo library</string>
 ```
+
+- macOS, macos/Runner/Info.plist
+```plist
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs camera access to scan QR codes</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs photos access to get QR code from photo library</string>
+```
+在Xcode中启用权限：XCode -> Signing & Capabilities
+![XCode -> Signing & Capabilities, 勾选camera](mac-xcode.png)
+
 
 3. 使用：扫描二维码
 
