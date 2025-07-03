@@ -39,12 +39,16 @@ class IosTool {
     final String xReleaseConfigPath = "./ios/Flutter/Release.xcconfig";
     final xDebugConfigContent = FileUtil.readFileContent(xDebugConfigPath);
     final xReleaseConfigContent = FileUtil.readFileContent(xReleaseConfigPath);
-    File(
-      xDebugConfigPath,
-    ).writeAsString(xDebugConfigContent + Template.xConfig);
-    File(
-      xReleaseConfigPath,
-    ).writeAsString(xReleaseConfigContent + Template.xConfig);
+    if (!xDebugConfigContent.contains(Template.xConfig)) {
+      File(
+        xDebugConfigPath,
+      ).writeAsString(xDebugConfigContent + Template.xConfig);
+    }
+    if (!xReleaseConfigContent.contains(Template.xConfig)) {
+      File(
+        xReleaseConfigPath,
+      ).writeAsString(xReleaseConfigContent + Template.xConfig);
+    }
   }
 
   // ios/Runner.xcodeproj/xcshareddata/xcschemes/Runner.xcscheme
@@ -56,6 +60,16 @@ class IosTool {
       'version = "1.3"',
       'version = "1.7"',
     );
+
+    if (updatedContent.contains("Run Script")) {
+      // 如果本身就存在 删除老的 Run Script
+      final pattern = RegExp(
+        r'<PreActions>[\s\S]*?</PreActions>',
+        multiLine: true,
+      );
+      updatedContent = updatedContent.replaceAll(pattern, '');
+    }
+
     updatedContent = FileUtil.insertBeforeLineInContent(
       updatedContent,
       "<BuildActionEntries>",

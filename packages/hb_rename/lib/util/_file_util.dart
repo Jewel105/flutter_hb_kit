@@ -163,6 +163,20 @@ class FileUtil {
     return content; // 未找到完整的 map 对象
   }
 
+  /// 删除文本中包含指定字符串的第一行
+  /// [content] - 总内容
+  /// [targetString] - 目标字符串
+  static String removeLineByString(String content, String targetString) {
+    final lines = content.split('\n');
+    for (var i = 0; i < lines.length; i++) {
+      if (lines[i].contains(targetString)) {
+        lines.removeAt(i); // 删除匹配行
+        return lines.join('\n');
+      }
+    }
+    return content; // 未找到匹配行时返回原文本
+  }
+
   /// 递归删除空目录
   static Future<void> deleteEmptyDirectories(Directory dir) async {
     // 如果目录不存在，直接返回

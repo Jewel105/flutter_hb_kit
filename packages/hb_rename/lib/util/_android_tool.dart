@@ -5,9 +5,27 @@ import 'package:hb_rename/util/_file_util.dart';
 
 class AndroidTool {
   static void resetApp(String appName, String bundleId) {
-    var oldPackageId = _getOldAppBundleId();
+    String buildGradleContent = '';
+    String buildGradlePath = '';
+    try {
+      buildGradlePath = './android/app/build.gradle';
+      buildGradleContent = FileUtil.readFileContent(buildGradlePath);
+    } catch (e) {
+      // 新版本的路径已经改为了：build.gradle.kts
+      // new version: build.gradle.kts
+      buildGradlePath = './android/app/build.gradle.kts';
+      buildGradleContent = FileUtil.readFileContent(buildGradlePath);
+    }
+
+    var oldPackageId = _getOldAppBundleId(buildGradleContent);
     _replaceAndroidManifest();
-    _replaceBuildGradle(appName, bundleId);
+    _replaceBuildGradle(
+      appName,
+      bundleId,
+      oldPackageId,
+      buildGradleContent,
+      buildGradlePath,
+    );
     _replaceMainActivity(bundleId, oldPackageId);
   }
 
@@ -24,20 +42,37 @@ class AndroidTool {
     File(manifestPath).writeAsString(updatedContent);
   }
 
-  static void _replaceBuildGradle(String? appName, String? bundleId) {
-    String buildGradlePath = './android/app/build.gradle';
-    final String buildGradleContent = FileUtil.readFileContent(buildGradlePath);
+  static void _replaceBuildGradle(
+    String? appName,
+    String? bundleId,
+    String? oldBundleId,
 
-    String updatedContent = FileUtil.insertBeforeLineInContent(
-      buildGradleContent,
-      "android {",
-      Template.androidDartEnv,
-    );
+    String buildGradleContent,
+    String buildGradlePath,
+  ) {
+    String updatedContent = buildGradleContent;
+    // 是否已经存在dartEnv的识别代码
+    bool areadlyExist = buildGradleContent.contains('dart-defines');
+    bool isKts = buildGradlePath.endsWith('.kts');
+    if (!areadlyExist) {
+      if (isKts) {
+        updatedContent = FileUtil.insertBeforeLineInContent(
+          buildGradleContent,
+          "android {",
+          Template.androidDartEnvKts,
+        );
+      } else {
+        updatedContent = FileUtil.insertBeforeLineInContent(
+          buildGradleContent,
+          "android {",
+          Template.androidDartEnvGradle,
+        );
+      }
+    }
 
-    if (bundleId != null) {
+    if (bundleId != null && oldBundleId != null) {
       // template 中的命名空间
       var namespaceTemplate = Template.getNamespaceString(bundleId);
-
       // 替换为新的命名空间
       updatedContent = FileUtil.replaceAttribute(
         updatedContent,
@@ -45,16 +80,30 @@ class AndroidTool {
         namespaceTemplate,
       );
       // 替换application
-      var applicationIdTemplate = Template.getApplicationId(bundleId);
-      updatedContent = FileUtil.replaceAttribute(
-        updatedContent,
-        'applicationId',
-        applicationIdTemplate,
-      );
+      var applicationIdTemplate = Template.getApplicationId(bundleId, isKts);
+      var oldApplicationId = Template.getApplicationId(oldBundleId, isKts);
+      if (updatedContent.contains(oldApplicationId)) {
+        // 已经设置过多环境
+        updatedContent = updatedContent.replaceAll(
+          oldApplicationId,
+          applicationIdTemplate,
+        );
+      } else {
+        updatedContent = FileUtil.replaceAttribute(
+          updatedContent,
+          'applicationId',
+          applicationIdTemplate,
+        );
+      }
     }
 
     if (appName != null) {
-      var resValueAppName = Template.getResValueAppName(appName);
+      var resValueAppName = Template.getResValueAppName(appName, isKts);
+      // 如果已经有定义, 先删除
+      updatedContent = FileUtil.removeLineByString(
+        updatedContent,
+        '"app_name",',
+      );
       updatedContent = FileUtil.insertAfterMap(
         updatedContent,
         'defaultConfig',
@@ -101,9 +150,7 @@ class AndroidTool {
     await FileUtil.deleteEmptyDirectories(oldFile.parent);
   }
 
-  static String? _getOldAppBundleId() {
-    String buildGradlePath = './android/app/build.gradle';
-    final String buildGradleContent = FileUtil.readFileContent(buildGradlePath);
+  static String? _getOldAppBundleId(String buildGradleContent) {
     // 正则表达式匹配 namespace 属性
     // 支持两种格式:
     // 1. build.gradle: namespace 'com.example.app' 或 namespace "com.example.app"

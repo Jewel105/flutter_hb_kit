@@ -1,8 +1,7 @@
 import 'package:args/command_runner.dart';
-
-import '../util/_android_tool.dart';
-import '../util/_ios_tool.dart';
-import '../util/_lib_tool.dart';
+import 'package:hb_rename/util/_android_tool.dart';
+import 'package:hb_rename/util/_ios_tool.dart';
+import 'package:hb_rename/util/_lib_tool.dart';
 
 // dart run hb_rename all -a MyApp -b com.example.myapp
 class HbRenameCommand extends Command {
