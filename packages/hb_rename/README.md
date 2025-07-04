@@ -1,6 +1,7 @@
 ## hb_rename
 
 > 一键更改 app 名称，多环境配置，packageId
+
 ![example image](example.png)
 
 ### 使用方法
