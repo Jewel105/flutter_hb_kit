@@ -1,14 +1,15 @@
 name: hb_rename
-description: "一键更改 app 名称，多环境配置，packageId，目前仅支持初始化时使用."
-version: 0.0.1
+description: "一键更改 app 名称，packageId, 多环境配置."
+version: 0.0.2
+maintainer: Jewel Yi (@Jewel105)
+homepage: https://github.com/Jewel105/flutter_hb_kit/tree/main/packages/hb_rename#readme
+repository: https://github.com/Jewel105/flutter_hb_kit/tree/main/packages/hb_rename
+issue_tracker: https://github.com/Jewel105/flutter_hb_kit/issues
 
 environment:
-  sdk: ">=3.7.0 <4.0.0"
-  flutter: ">=1.17.0"
+  sdk: ">=3.3.4 <4.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
   args: ^2.7.0
 
 dev_dependencies:

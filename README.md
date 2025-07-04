@@ -10,4 +10,4 @@ Flutter 跨平台应用公共组件库
 | **hb_router** | 路由管理工具，支持页面间参数传递与跳转动画配置 | [查看文档](packages/hb_router/README.md) |
 | **hb_common** | 基础组件集合，包含常用UI组件、扩展方法（extension）、公共样式及工具类 | [查看文档](packages/hb_common/README.md) |
 | **hb_qr** | 二维码功能套件，支持扫描解析与生成自定义二维码 | [查看文档](packages/hb_qr/README.md) |
-| **hb_rename** | 应用配置工具，支持一键修改APP名称、多环境配置及packageId<br/><br/>⚠️ 注意：仅适配iOS/Android平台 | [查看文档](packages/hb_rename/README.md) |
+| **hb_rename** | 应用配置工具，支持一键修改APP名称、多环境配置及packageId<br/><br/>⚠️ 注意：仅适配iOS/Android/MacOS平台 | [查看文档](packages/hb_rename/README.md) |

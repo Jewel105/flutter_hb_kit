@@ -1,6 +1,7 @@
 ## hb_rename
 
 > 一键更改 app 名称，多环境配置，packageId
+![example image](example.png)
 
 ### 使用方法
 
@@ -12,7 +13,7 @@ dev_dependencies:
 ```
 
 2. 项目根目录下使用
-> 此命令会自动将APP名称改为YourName，包名改为com.you.app，并且自动区分生产环境和开发环境，开发环境的名称为：YourName_DEV,包名自动加上dev
+> 此命令会自动将APP名称改为YourName，包名改为com.you.app，并且自动区分生产环境和开发环境，开发环境的名称自动为：YourName_DEV, 包名也会自动加上dev
 
 ```shell
 dart run hb_rename all -a YourName -b com.you.app
