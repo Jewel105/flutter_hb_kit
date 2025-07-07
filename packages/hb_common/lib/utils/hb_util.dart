@@ -9,15 +9,19 @@ import 'hb_dialog.dart';
 
 typedef FormatFn<T> = DateFormat Function([dynamic locale]);
 
+enum HmsFormat { h, hm, hms }
+
 class HbUtil {
-  /// 日期格式化；
-  /// 不传format，默认格式：2023/10/06 12:56:34，且会根据不同国家显示不同的顺序；
-  /// format格式是：DateFormat.yMd DateFormat.Hms等，会根据不同的国家显示不同的格式
+  /// 日期格式化: 且会根据不同国家显示不同的样式
+  /// 默认格式：2023/10/06 12:56:34
+  /// customFormat格式是：日期格式化，DateFormat.yMd，DateFormat.Md，DateFormat.yMMMMd
+  /// hmsAddFormat: 添加时分秒的格式化样式
   /// time，可以是 DateTime类型，String，int类型为时间戳
   static String dateTimeFormat(
     BuildContext context, {
     required Object? time,
-    FormatFn? format,
+    FormatFn? customFormat,
+    HmsFormat? hmsAddFormat,
   }) {
     if (time == null) return '';
     if (time == '') return '';
@@ -32,14 +36,51 @@ class HbUtil {
       }
       dateTime = DateTime.fromMillisecondsSinceEpoch(time);
     }
-    if (format == null) {
+
+    // 默认 2023/10/06 12:56:34
+    if (hmsAddFormat == null && customFormat == null) {
       return DateFormat.yMd(
         HbCommonLocalizations.of(context).localeName,
       ).add_Hms().format(dateTime);
-    } else {
-      return format(
+    }
+
+    // 只格式化时分秒
+    if (customFormat == null) {
+      switch (hmsAddFormat) {
+        case HmsFormat.h:
+          return DateFormat.H(
+            HbCommonLocalizations.of(context).localeName,
+          ).format(dateTime);
+        case HmsFormat.hm:
+          return DateFormat.Hm(
+            HbCommonLocalizations.of(context).localeName,
+          ).format(dateTime);
+        default:
+          return DateFormat.Hms(
+            HbCommonLocalizations.of(context).localeName,
+          ).format(dateTime);
+      }
+    }
+
+    // 只格式化年月日
+    if (hmsAddFormat == null) {
+      return customFormat(
         HbCommonLocalizations.of(context).localeName,
       ).format(dateTime);
+    }
+
+    // 格式化年月日和时分秒
+    DateFormat dateFormatTem = customFormat(
+      HbCommonLocalizations.of(context).localeName,
+    );
+
+    switch (hmsAddFormat) {
+      case HmsFormat.h:
+        return dateFormatTem.add_H().format(dateTime);
+      case HmsFormat.hm:
+        return dateFormatTem.add_Hm().format(dateTime);
+      default:
+        return dateFormatTem.add_Hms().format(dateTime);
     }
   }
 

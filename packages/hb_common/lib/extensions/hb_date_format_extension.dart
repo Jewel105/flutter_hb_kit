@@ -8,7 +8,7 @@ extension HbDateFormatExtension on DateTime? {
     return HbUtil.dateTimeFormat(
       HbRouter.key.currentState!.context,
       time: this,
-      format: DateFormat.yMd,
+      customFormat: DateFormat.yMd,
     );
   }
 
@@ -16,22 +16,35 @@ extension HbDateFormatExtension on DateTime? {
     return HbUtil.dateTimeFormat(
       HbRouter.key.currentState!.context,
       time: this,
-      format: DateFormat.yMMMMd,
+      customFormat: DateFormat.yMMMMd,
     );
   }
 
-  String get dateFormat {
+  String get yMdHms {
     return HbUtil.dateTimeFormat(
       HbRouter.key.currentState!.context,
       time: this,
     );
   }
 
-  String dateToFormat({DateFormat Function([dynamic])? format}) {
+  String get yMdHm {
     return HbUtil.dateTimeFormat(
       HbRouter.key.currentState!.context,
       time: this,
-      format: format,
+      customFormat: DateFormat.yMd,
+      hmsAddFormat: HmsFormat.hm,
+    );
+  }
+
+  String dateToFormat({
+    DateFormat Function([dynamic])? customFormat,
+    HmsFormat? hmsAddFormat,
+  }) {
+    return HbUtil.dateTimeFormat(
+      HbRouter.key.currentState!.context,
+      time: this,
+      customFormat: customFormat,
+      hmsAddFormat: hmsAddFormat,
     );
   }
 }
@@ -41,7 +54,7 @@ extension HbDateIntFormatExtension on num? {
     return HbUtil.dateTimeFormat(
       HbRouter.key.currentState!.context,
       time: this,
-      format: DateFormat.yMd,
+      customFormat: DateFormat.yMd,
     );
   }
 
@@ -49,22 +62,35 @@ extension HbDateIntFormatExtension on num? {
     return HbUtil.dateTimeFormat(
       HbRouter.key.currentState!.context,
       time: this,
-      format: DateFormat.yMMMMd,
+      customFormat: DateFormat.yMMMMd,
     );
   }
 
-  String get dateFormat {
+  String get yMdHms {
     return HbUtil.dateTimeFormat(
       HbRouter.key.currentState!.context,
       time: this,
     );
   }
 
-  String dateToFormat({DateFormat Function([dynamic])? format}) {
+  String get yMdHm {
     return HbUtil.dateTimeFormat(
       HbRouter.key.currentState!.context,
       time: this,
-      format: format,
+      customFormat: DateFormat.yMd,
+      hmsAddFormat: HmsFormat.hm,
+    );
+  }
+
+  String dateToFormat({
+    DateFormat Function([dynamic])? customFormat,
+    HmsFormat? hmsAddFormat,
+  }) {
+    return HbUtil.dateTimeFormat(
+      HbRouter.key.currentState!.context,
+      time: this,
+      customFormat: customFormat,
+      hmsAddFormat: hmsAddFormat,
     );
   }
 }
@@ -74,7 +100,7 @@ extension HbDateStringFormatExtension on String? {
     return HbUtil.dateTimeFormat(
       HbRouter.key.currentState!.context,
       time: this,
-      format: DateFormat.yMd,
+      customFormat: DateFormat.yMd,
     );
   }
 
@@ -82,22 +108,35 @@ extension HbDateStringFormatExtension on String? {
     return HbUtil.dateTimeFormat(
       HbRouter.key.currentState!.context,
       time: this,
-      format: DateFormat.yMMMMd,
+      customFormat: DateFormat.yMMMMd,
     );
   }
 
-  String get dateFormat {
+  String get yMdHms {
     return HbUtil.dateTimeFormat(
       HbRouter.key.currentState!.context,
       time: this,
     );
   }
 
-  String dateToFormat({DateFormat Function([dynamic])? format}) {
+  String get yMdHm {
     return HbUtil.dateTimeFormat(
       HbRouter.key.currentState!.context,
       time: this,
-      format: format,
+      customFormat: DateFormat.yMd,
+      hmsAddFormat: HmsFormat.hm,
+    );
+  }
+
+  String dateToFormat({
+    DateFormat Function([dynamic])? customFormat,
+    HmsFormat? hmsAddFormat,
+  }) {
+    return HbUtil.dateTimeFormat(
+      HbRouter.key.currentState!.context,
+      time: this,
+      customFormat: customFormat,
+      hmsAddFormat: hmsAddFormat,
     );
   }
 }

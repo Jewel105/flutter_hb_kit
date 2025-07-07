@@ -76,8 +76,9 @@ HbList(
 ```
 
 4. 表单工具
+
 ```dart
-// 第一步：继承选项model
+// 第一步：继承选项model，用于上拉选项列表
 // 这里可以根据自动生成的json model进行修改
 class SelectItemModel implements HbSelectItemModel {}
 
@@ -106,7 +107,9 @@ HbForm(formController: _form, children: [
   ),
 ]);
 ```
+
 5. 国际化
+
 ```dart
  MaterialApp(
   localizationsDelegates: const <LocalizationsDelegate<
@@ -116,13 +119,16 @@ HbForm(formController: _form, children: [
     ],
   )
 ```
+
 6. 全局颜色
+
 ```dart
   // 初始化hb颜色
   AppColor.init();
   // 使用
   HbColor.textBlack;
 ```
+
 ```dart
 // 需要您自定义自己的颜色
 class AppColor {
@@ -157,13 +163,16 @@ class AppColor {
   }
 }
 ```
-7. 常用extension
+
+7. 常用 extension
 
 ```dart
 // 时间格式化
-"1748577780".dateFormat;
+"1748577780".yMd;
 1748577780.yMMMMd;
-DateTime.now().dateFormat;
+1748577780.yMdHms;
+DateTime.now().yMdHm;
+DateTime.now().dateToFormat(customFormat:DateFormat.yMd);
 // widget extension pt pr等
 Text("text").pt(32.w);
 // 数字格式化
@@ -173,6 +182,7 @@ Text("text").pt(32.w);
 ```
 
 8. 图标，支持网络，svg，本地图标，并缓存到本地
+
 ```dart
 HbIcon(
   icon: "http://",

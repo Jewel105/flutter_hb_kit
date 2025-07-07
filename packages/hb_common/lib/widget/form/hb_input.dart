@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
-import '../../app/hb_color.dart';
+import '../../app/index.dart';
 import '../../extensions/index.dart';
 import '../../localization/hb_common_localizations.dart';
 import '../../utils/hb_crypto.dart';
@@ -119,7 +119,9 @@ class HbInput extends HbFormWidget {
 
   @override
   setFormValue(Map<String, dynamic>? value) {
-    formValue = value;
+    if (value != null && data.name != null && data.name!.isNotEmpty) {
+      formValue = value;
+    }
   }
 }
 
@@ -182,7 +184,7 @@ class HbInputState extends State<HbInput> {
       return Icon(
         _hidePassword ? Icons.visibility_off : Icons.visibility,
         size: 18.w,
-      ).pr(10.w).onInkTap(() {
+      ).pr(10.w).onGestureTap(() {
         _hidePassword = !_hidePassword;
         if (mounted) setState(() {});
       });
@@ -217,7 +219,7 @@ class HbInputState extends State<HbInput> {
               Icons.cancel,
               size: 16.w,
               color: Theme.of(context).colorScheme.onSurface,
-            ).pr(10.w).onInkTap(() {
+            ).pr(10.w).onGestureTap(() {
               _controller.clear();
             }),
           );
@@ -279,63 +281,65 @@ class HbInputState extends State<HbInput> {
   Widget build(BuildContext context) {
     return Visibility(
       visible: widget.data.show,
-      child: Padding(
-        padding: EdgeInsets.only(bottom: 20.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            widget.data.label != null || widget.data.labelWeight != null
-                ? Padding(
-                  padding: EdgeInsets.only(bottom: 8.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      widget.data.labelWeight ??
-                          widget.data.label!.text12w500(),
-                      widget.data.rightLabel ?? const SizedBox(),
-                    ],
-                  ),
-                )
-                : const SizedBox(),
-            TextFormField(
-              initialValue: widget.data.initialValue,
-              focusNode: _focusNode,
-              inputFormatters: widget.data.inputFormatters,
-              key: widget.data.inputKey,
-              onTap: widget.data.onTap,
-              readOnly: widget.data.readOnly ?? false,
-              controller: widget.data.initialValue == null ? _controller : null,
-              style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
-              autofocus: widget.data.autofocus,
-              obscureText: _hidePassword,
-              maxLength: widget.data.maxLength,
-              maxLines: widget.data.maxLines ?? 1,
-              decoration: InputDecoration(
-                prefixIconConstraints: BoxConstraints(
-                  maxHeight: 24.w,
-                  minHeight: 0,
-                ),
-                prefixIcon: widget.data.prefix?.px(8.w),
-                isCollapsed: true,
-                enabled: widget.data.enabled,
-                hintText: widget.data.hintText,
-                suffixIconConstraints: BoxConstraints(
-                  maxHeight: 24.w,
-                  minHeight: 0,
-                ),
-                suffixIconColor: HbColor.textGrey,
-                suffixIcon: counterSuffixIcon(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          widget.data.label != null || widget.data.labelWeight != null
+              ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  widget.data.labelWeight ??
+                      Text(
+                        widget.data.label!,
+                        style:
+                            Theme.of(context).inputDecorationTheme.labelStyle ??
+                            HbStyle.text14,
+                      ),
+                  widget.data.rightLabel ?? const SizedBox(),
+                ],
+              ).pb(8.w)
+              : const SizedBox(),
+          TextFormField(
+            initialValue: widget.data.initialValue,
+            focusNode: _focusNode,
+            inputFormatters: widget.data.inputFormatters,
+            key: widget.data.inputKey,
+            onTap: widget.data.onTap,
+            readOnly: widget.data.readOnly ?? false,
+            controller: widget.data.initialValue == null ? _controller : null,
+            autofocus: widget.data.autofocus,
+            style: Theme.of(context).textTheme.bodyMedium,
+            obscureText: _hidePassword,
+            maxLength: widget.data.maxLength,
+            maxLines: widget.data.maxLines ?? 1,
+            decoration: InputDecoration(
+              prefixIconConstraints: BoxConstraints(
+                maxHeight: 24.w,
+                minHeight: 0,
               ),
-              validator: validator(),
-              textInputAction: widget.data.textInputAction,
-              keyboardType: widget.data.keyboardType,
-              onChanged: (String value) {
-                widget.data.onChanged?.call(value);
-              },
-              onFieldSubmitted: widget.data.onFieldSubmitted,
+              prefixIcon: widget.data.prefix?.px(8.w),
+              isCollapsed: true,
+              enabled: widget.data.enabled,
+              hintText: widget.data.hintText,
+              hintStyle:
+                  Theme.of(context).inputDecorationTheme.hintStyle ??
+                  HbStyle.text12Grey,
+              suffixIconConstraints: BoxConstraints(
+                maxHeight: 24.w,
+                minHeight: 0,
+              ),
+              suffixIconColor: HbColor.textGrey,
+              suffixIcon: counterSuffixIcon(),
             ),
-          ],
-        ),
+            validator: validator(),
+            textInputAction: widget.data.textInputAction,
+            keyboardType: widget.data.keyboardType,
+            onChanged: (String value) {
+              widget.data.onChanged?.call(value);
+            },
+            onFieldSubmitted: widget.data.onFieldSubmitted,
+          ),
+        ],
       ),
     );
   }

@@ -316,7 +316,6 @@ class _SelectDialog extends StatelessWidget {
             topLeft: Radius.circular(16.w),
             topRight: Radius.circular(16.w),
           ),
-          color: Colors.white,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -334,7 +333,7 @@ class _SelectDialog extends StatelessWidget {
               ),
               child: Text(
                 title ?? HbCommonLocalizations.current.pleaseSelect,
-                style: TextStyle(fontSize: 16.w, fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w600),
               ),
             ),
             // items

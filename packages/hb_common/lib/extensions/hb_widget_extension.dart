@@ -4,6 +4,15 @@ extension HbWidgetExtension on Widget {
   InkWell onInkTap(final GestureTapCallback? onTap) =>
       InkWell(onTap: onTap, child: this);
 
+  MouseRegion onGestureTap(final GestureTapCallback? onTap) => MouseRegion(
+    cursor: SystemMouseCursors.click, // Custom cursor
+    child: GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: onTap,
+      child: this,
+    ),
+  );
+
   Widget get left {
     return Align(alignment: Alignment.centerLeft, child: this);
   }
