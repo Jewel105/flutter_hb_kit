@@ -190,4 +190,29 @@ HbIcon(
 )
 ```
 
+9. 上报异常
+- 处理了同步异常和异步异常
+
+```dart
+// main.dart
+void main() {
+  final errorReport = HbErrorReport(reportError: reportException);
+  // Run the app within the error-handling zone
+  errorReport.errorHandlingZone.run(() async {
+    // ....
+    runApp(const MyApp());
+  });
+}
+
+reportException(
+    Object error,
+    StackTrace? stackTrace,
+  ) async {
+    if (error is DioException) return; // 忽略dio的网络错误
+    if (!kReleaseMode) return; // 非release模式不上报
+    debugPrint('上报异常');
+    // 处理您的逻辑
+  }
+```
+
 > 无法囊括所有，其他功能请看源码

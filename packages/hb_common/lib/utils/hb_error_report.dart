@@ -69,7 +69,6 @@ class HbErrorReport {
   /// Reports the given error and stack trace. Only reports in release mode.
   /// 上报错误信息和堆栈，仅在 Release 模式下执行
   void _reportError(Object error, StackTrace? stackTrace) {
-    if (!kReleaseMode) return;
     // 处理你自己的上报逻辑
     reportError?.call(error, stackTrace);
   }

@@ -3,7 +3,7 @@ description: "基础组件库，包含常用的基础组件， extension，公�
 version: 0.0.3
 
 environment:
-  sdk: ">=3.7.0 <4.0.0"
+  sdk: ">=3.3.0 <4.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
