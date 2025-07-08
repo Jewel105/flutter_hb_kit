@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
 
 extension HbWidgetExtension on Widget {
-  InkWell onInkTap(final GestureTapCallback? onTap) =>
-      InkWell(onTap: onTap, child: this);
+  Ink onInkTap(final GestureTapCallback? onTap, {BoxDecoration? decoration}) =>
+      Ink(
+        decoration: decoration,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: decoration?.borderRadius is BorderRadius
+              ? decoration!.borderRadius as BorderRadius
+              : null,
+          child: this,
+        ),
+      );
 
   MouseRegion onGestureTap(final GestureTapCallback? onTap) => MouseRegion(
-    cursor: SystemMouseCursors.click, // Custom cursor
-    child: GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: onTap,
-      child: this,
-    ),
-  );
+        cursor: SystemMouseCursors.click, // Custom cursor
+        child: GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: onTap,
+          child: this,
+        ),
+      );
 
   Widget get left {
     return Align(alignment: Alignment.centerLeft, child: this);
