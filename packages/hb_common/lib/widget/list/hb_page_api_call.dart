@@ -6,6 +6,7 @@ class HbPageApiCall<T> {
   final int pageSize = 20;
   List<T> items = [];
   final Future<HbPageModel> Function(Map<String, dynamic>) _apiCall;
+  int get counts => items.length;
 
   static String pageStr = 'page';
   static String pageSizeStr = 'pageSize';
@@ -49,5 +50,4 @@ abstract class HbPageModel<T> {
   List<T> get items;
   int get page;
   int get pageSize;
-  int get total;
 }

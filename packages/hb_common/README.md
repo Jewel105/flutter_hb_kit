@@ -34,37 +34,43 @@ HbStorage.get("key");
 - 使用
 
 ```dart
-// 初始化分页入参的json key
+// 初始化分页入参的json key，默认是'page','pageSize';
 HbPageApiCall.setUp(pageKey: "page", pageSizeKey: 'size');
 // 实现model，后端分页的json需要继承HbPageModel
 class PageModel implements HbPageModel {
-  // 这里可以根据自动生成的json model进行修改
+  // 这里可以根据自动生成的json model进行修改，
+  @override
+  @JsonKey(name: "page", defaultValue: 0)
+  final int page;
+
+  @override
+  @JsonKey(name: "size", defaultValue: 0)
+  final int pageSize;
+
+  @override
+  @JsonKey(name: "items", defaultValue: [])
+  List items;
+  // ...
 }
 
-
-// 使用
+// 使用下拉加载更多, HbPageApiCall中封装了更新和加载
  final HbPageApiCall<OrderModel> pageApiCall =
       HbPageApiCall<OrderModel>(Api.getList);
 // Api.getList的类型是：Future<PageModel> getList(Map<String, dynamic> rowData)
 
-// 下拉刷新
-Future<void> _onRefresh() async {
-  if (mounted) setState(() {});
-  pageApiCall.refresh();
-  await _loadMore();
-}
-
-// 上拉加载更多
-Future<void> _loadMore() async {
-  await pageApiCall.loadMore();
-  if (mounted) setState(() {});
-}
-
-HbList(
-  itemCount: pageApiCall.items.length,
-  hasMore: pageApiCall.hasMore,
-  loadMore: _loadMore,
-  onRefresh: _onRefresh,
+HbList<OrderModel>(
+  apiCall: pageApiCall,
+  skeleton: const OrderSkeleton(),
+  itemBuilder: (context, index) {
+    final item = pageApiCall.items[index];
+    return OrderItem(item: item).onInkTap(() {
+      HbNav.push(Routes.orderDetail, arguments: item);
+    });
+  },
+),
+// 不使用下拉加载
+HbList<OrderModel>(
+  itemCount：10,
   skeleton: const OrderSkeleton(),
   itemBuilder: (context, index) {
     final item = pageApiCall.items[index];
@@ -191,6 +197,7 @@ HbIcon(
 ```
 
 9. 上报异常
+
 - 处理了同步异常和异步异常
 
 ```dart

@@ -6,36 +6,37 @@ import '../../app/hb_color.dart';
 import '../../extensions/index.dart';
 import '../../localization/hb_common_localizations.dart';
 import '../hb_icon.dart';
+import 'hb_page_api_call.dart';
 
 typedef RefreshCallback = Future<void> Function();
 typedef LoadMoreCallback = Future<void> Function();
 
-class HbList extends StatefulWidget {
-  final int itemCount;
+class HbList<T> extends StatefulWidget {
+  final int? itemCount;
   final IndexedWidgetBuilder itemBuilder;
   final RefreshCallback? onRefresh; // 下拉刷新回调 与reverse:true时不能同时生效
-  final bool hasMore; // 是否还有数据
+  final bool? hasMore; // 是否还有数据
   final bool reverse; // 是否反转滚动
   final bool shrinkWrap; // 是否反转滚动
-  final LoadMoreCallback? loadMore; // 上拉加载更多回调
   final double? itemExtent;
   final ScrollController? controller;
   final Widget? skeleton; // 刚刚加载时显示骨架屏
   final Widget? bottomWidget; // 底部widget
   final Widget? noDataWidget; // 底部widget
   final Color? backgroundColor; // 背景色
+  final HbPageApiCall<T>? apiCall; // 列表数据请求
 
   const HbList({
     super.key,
-    required this.itemCount,
+    this.itemCount,
     required this.itemBuilder,
+    this.apiCall,
     this.onRefresh,
-    this.hasMore = true,
+    this.hasMore,
     this.reverse = false,
     this.shrinkWrap = true,
     this.controller,
     this.itemExtent,
-    this.loadMore,
     this.skeleton,
     this.bottomWidget,
     this.noDataWidget,
@@ -50,6 +51,10 @@ class _HbListState extends State<HbList> {
   late final ScrollController _controller;
   // 是否显示浮动按钮
   final _showFloatingButton = ValueNotifier<bool>(false);
+  int get itemCount => widget.itemCount ?? widget.apiCall?.counts ?? 0;
+
+  bool get hasMore =>
+      widget.hasMore ?? widget.apiCall?.hasMore ?? false; // 是否还有数据
 
   @override
   void initState() {
@@ -69,6 +74,21 @@ class _HbListState extends State<HbList> {
     });
   }
 
+  // 下拉刷新
+  Future<void> _onRefresh() async {
+    if (mounted) setState(() {});
+    widget.apiCall?.refresh();
+    await widget.onRefresh?.call();
+    if (mounted) setState(() {});
+  }
+
+  // 上拉加载更多
+  Future<void> _loadMore() async {
+    if (widget.apiCall == null) return;
+    await widget.apiCall?.loadMore();
+    if (mounted) setState(() {});
+  }
+
   Widget createListWidget() {
     Widget listWidget = Scrollbar(
       controller: _controller,
@@ -78,16 +98,16 @@ class _HbListState extends State<HbList> {
         reverse: widget.reverse,
         controller: _controller,
         itemExtent: widget.itemExtent, // 每个块的大小，使拖动滚动条更平滑
-        itemCount: widget.itemCount + 1,
+        itemCount: itemCount + 1,
         itemBuilder: (context, index) {
-          if (index == widget.itemCount) {
-            if (widget.hasMore && widget.loadMore != null) {
-              if (widget.itemCount != 0) widget.loadMore?.call();
-              if (widget.itemCount == 0 && widget.skeleton != null) {
+          if (index == itemCount) {
+            if (hasMore) {
+              _loadMore();
+              if (itemCount == 0 && widget.skeleton != null) {
                 return widget.skeleton;
               }
               return const _BottomLoading();
-            } else if (widget.itemCount == 0) {
+            } else if (itemCount == 0) {
               return Column(
                 children: [
                   widget.noDataWidget ??
@@ -97,13 +117,13 @@ class _HbListState extends State<HbList> {
                       ),
                   HbCommonLocalizations.current.noData.text14w500Grey().pt(8.w),
                 ],
-              ).pt(120.w);
+              ).pt(0.5.sh - 100.w < 0 ? 0 : 0.5.sh - 100.w);
             } else {
               return widget.bottomWidget ??
                   SafeArea(
                     minimum: const EdgeInsets.only(bottom: 16, top: 16),
                     child: Text(
-                      HbCommonLocalizations.current.totalTip(widget.itemCount),
+                      HbCommonLocalizations.current.totalTip(itemCount),
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 12, color: HbColor.textGrey),
                     ),
@@ -114,10 +134,11 @@ class _HbListState extends State<HbList> {
         },
       ),
     );
-    if (widget.reverse || widget.onRefresh == null) {
+    if (widget.reverse ||
+        (widget.onRefresh == null && widget.apiCall == null)) {
       return listWidget;
     } else {
-      return RefreshIndicator(onRefresh: widget.onRefresh!, child: listWidget);
+      return RefreshIndicator(onRefresh: _onRefresh, child: listWidget);
     }
   }
 
