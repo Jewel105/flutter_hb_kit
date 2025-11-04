@@ -1,0 +1,19 @@
+{
+  "dayFormat": "{date}",
+  "@dayFormat": {
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMd"
+      }
+    }
+  },
+  "date": "Date",
+  "open": "Open",
+  "high": "High",
+  "low": "Low",
+  "close": "Close",
+  "changeAmount": "Change",
+  "change": "Change%",
+  "amount": "Amount"
+}

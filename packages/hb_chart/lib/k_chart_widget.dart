@@ -1,28 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:hb_chart/chart_translations.dart';
-import 'package:hb_chart/extension/map_ext.dart';
 import 'package:hb_chart/hb_chart.dart';
+
+import 'localization/hb_chart_localizations.dart';
 
 enum MainState { MA, BOLL, NONE }
 
 enum SecondaryState { MACD, KDJ, RSI, WR, CCI, NONE }
-
-class TimeFormat {
-  static const List<String> YEAR_MONTH_DAY = [yyyy, '-', mm, '-', dd];
-  static const List<String> YEAR_MONTH_DAY_WITH_HOUR = [
-    yyyy,
-    '-',
-    mm,
-    '-',
-    dd,
-    ' ',
-    HH,
-    ':',
-    nn
-  ];
-}
 
 class KChartWidget extends StatefulWidget {
   final List<KLineEntity>? datas;
@@ -38,8 +23,6 @@ class KChartWidget extends StatefulWidget {
   final bool showNowPrice;
   final bool showInfoDialog;
   final bool materialInfoDialog; // Material风格的信息弹窗
-  final Map<String, ChartTranslations> translations;
-  final List<String> timeFormat;
 
   //当屏幕滚动到尽头会调用，真为拉到屏幕右侧尽头，假为拉到屏幕左侧尽头
   final Function(bool)? onLoadMore;
@@ -73,8 +56,6 @@ class KChartWidget extends StatefulWidget {
     this.showNowPrice = true,
     this.showInfoDialog = true,
     this.materialInfoDialog = true,
-    this.translations = kChartTranslations,
-    this.timeFormat = TimeFormat.YEAR_MONTH_DAY,
     this.onLoadMore,
     this.fixedLength = 2,
     this.maDayList = const [5, 10, 20],
@@ -359,7 +340,7 @@ class _KChartWidgetState extends State<KChartWidget>
           double upDownPercent = entity.ratio ?? (upDown / entity.open) * 100;
           final double? entityAmount = entity.amount;
           infos = [
-            getDate(entity.time),
+            DateFormatUtil.format(entity.time),
             entity.open.toStringAsFixed(widget.fixedLength),
             entity.high.toStringAsFixed(widget.fixedLength),
             entity.low.toStringAsFixed(widget.fixedLength),
@@ -387,13 +368,9 @@ class _KChartWidgetState extends State<KChartWidget>
               itemExtent: 14.0,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                final translations = widget.isChinese
-                    ? kChartTranslations['zh_CN']!
-                    : widget.translations.of(context);
-
                 return _buildItem(
                   infos[index],
-                  translations.byIndex(index),
+                  getInfoName(index),
                 );
               },
             ),
@@ -423,8 +400,26 @@ class _KChartWidgetState extends State<KChartWidget>
         : infoWidget;
   }
 
-  String getDate(int? date) => dateFormat(
-      DateTime.fromMillisecondsSinceEpoch(
-          date ?? DateTime.now().millisecondsSinceEpoch),
-      widget.timeFormat);
+  String getInfoName(int index) {
+    switch (index) {
+      case 0:
+        return HbChartLocalizations.current.date;
+      case 1:
+        return HbChartLocalizations.current.open;
+      case 2:
+        return HbChartLocalizations.current.high;
+      case 3:
+        return HbChartLocalizations.current.low;
+      case 4:
+        return HbChartLocalizations.current.close;
+      case 5:
+        return HbChartLocalizations.current.changeAmount;
+      case 6:
+        return HbChartLocalizations.current.change;
+      case 7:
+        return HbChartLocalizations.current.amount;
+    }
+
+    throw UnimplementedError();
+  }
 }

@@ -8,9 +8,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ">=0.18.0 <0.21.0"
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
 flutter:
+  generate: true
