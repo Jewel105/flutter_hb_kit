@@ -1,3 +1,0 @@
-mixin CCIEntity {
-  double? cci;
-}
