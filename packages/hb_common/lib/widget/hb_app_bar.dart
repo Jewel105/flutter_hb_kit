@@ -17,27 +17,30 @@ class HbAppBar extends AppBar {
     Widget? leading, // Widget for the leading area, typically a back button
     Widget? titleWidget, // Custom widget for the title (自定义的标题组件)
     BackCallback? onBack,
+    bool showBackButton = true, // Whether to show the back button (默认显示返回按钮)
   }) : super(
-         surfaceTintColor: bgColor,
-         toolbarHeight: 44.w,
-         backgroundColor: bgColor,
-         title: titleName == null ? titleWidget : Text(titleName),
-         titleTextStyle: titleStyle,
-         leading:
-             leading ??
-             InkWell(
-               onTap: () {
-                 if (onBack != null) {
-                   onBack();
-                 } else {
-                   HbNav.back();
-                 }
-               },
-               child: Padding(
-                 padding: EdgeInsets.only(left: 4.w),
-                 child: Icon(Icons.arrow_back_ios, color: titleStyle?.color),
-               ),
-             ),
-         centerTitle: isCenterTitle,
-       );
+          surfaceTintColor: bgColor,
+          toolbarHeight: 44.w,
+          backgroundColor: bgColor,
+          title: titleName == null ? titleWidget : Text(titleName),
+          titleTextStyle: titleStyle,
+          leading: showBackButton
+              ? leading ??
+                  InkWell(
+                    onTap: () {
+                      if (onBack != null) {
+                        onBack();
+                      } else {
+                        HbNav.back();
+                      }
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 4.w),
+                      child:
+                          Icon(Icons.arrow_back_ios, color: titleStyle?.color),
+                    ),
+                  )
+              : null,
+          centerTitle: isCenterTitle,
+        );
 }

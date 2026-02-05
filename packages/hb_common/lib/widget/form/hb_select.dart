@@ -73,44 +73,44 @@ class HbSelect extends HbFormWidget {
     // 发送邮件
     Function? sendCode,
   }) : data = HbFormData(
-         name: name,
-         show: show,
-         inputKey: inputKey,
-         preKey: preKey,
-         label: label,
-         email: email,
-         rightLabel: rightLabel,
-         labelWeight: labelWeight,
-         controller: controller,
-         preController: preController,
-         initialValue: initialValue,
-         autofocus: autofocus,
-         enabled: enabled,
-         readOnly: readOnly,
-         hintText: hintText,
-         uploadTip: uploadTip,
-         suffix: suffix,
-         prefix: prefix,
-         defaultImage: defaultImage,
-         customWidget: customWidget,
-         maxLength: maxLength,
-         maxLines: maxLines,
-         validatorType: validatorType,
-         validator: validator,
-         textInputAction: textInputAction,
-         keyboardType: keyboardType,
-         onChanged: onChanged,
-         onSelected: onSelected,
-         onFieldSubmitted: onFieldSubmitted,
-         onTap: onTap,
-         onBlur: onBlur,
-         selectItems: selectItems,
-         radioController: radioController,
-         inputFormatters: inputFormatters,
-         showIcon: showIcon,
-         showDescription: showDescription,
-         sendCode: sendCode,
-       );
+          name: name,
+          show: show,
+          inputKey: inputKey,
+          preKey: preKey,
+          label: label,
+          email: email,
+          rightLabel: rightLabel,
+          labelWeight: labelWeight,
+          controller: controller,
+          preController: preController,
+          initialValue: initialValue,
+          autofocus: autofocus,
+          enabled: enabled,
+          readOnly: readOnly,
+          hintText: hintText,
+          uploadTip: uploadTip,
+          suffix: suffix,
+          prefix: prefix,
+          defaultImage: defaultImage,
+          customWidget: customWidget,
+          maxLength: maxLength,
+          maxLines: maxLines,
+          validatorType: validatorType,
+          validator: validator,
+          textInputAction: textInputAction,
+          keyboardType: keyboardType,
+          onChanged: onChanged,
+          onSelected: onSelected,
+          onFieldSubmitted: onFieldSubmitted,
+          onTap: onTap,
+          onBlur: onBlur,
+          selectItems: selectItems,
+          radioController: radioController,
+          inputFormatters: inputFormatters,
+          showIcon: showIcon,
+          showDescription: showDescription,
+          sendCode: sendCode,
+        );
 
   @override
   State<HbSelect> createState() => _HbSelectState();
@@ -151,29 +151,37 @@ class HbSelect extends HbFormWidget {
   }
 
   /// 设置默认选中
+  // 设置默认选中
   static void setDefaultSelect({
     List<HbSelectItemModel>? list,
     required HbRadioController controller,
     String? value,
+    bool isForce = true,
   }) {
-    if (list != null && list.isNotEmpty) {
-      if (value != null) {
-        for (var e in list) {
-          if (e.code == value) {
-            controller.selectItem.value = e;
-            controller.curIndex.value = list.indexOf(e);
+    try {
+      if (list != null && list.isNotEmpty) {
+        if (value != null) {
+          for (var e in list) {
+            if (e.code == value) {
+              controller.selectItem.value = e;
+              controller.curIndex.value = list.indexOf(e);
+            }
+          }
+        } else {
+          if (isForce) {
+            controller.curIndex.value = 0;
+            controller.selectItem.value = list.firstOrNull;
+          } else {
+            controller.curIndex.value = -1;
+            controller.selectItem.value = null;
           }
         }
-      } else if (controller.curIndex.value != -1 &&
-          controller.curIndex.value < list.length) {
-        controller.selectItem.value = list[controller.curIndex.value];
       } else {
-        controller.curIndex.value = 0;
-        controller.selectItem.value = list.firstOrNull;
+        controller.curIndex.value = -1;
+        controller.selectItem.value = null;
       }
-    } else {
-      controller.selectItem.value = null;
-      controller.curIndex.value = -1;
+    } catch (e) {
+      print("error: $e");
     }
   }
 }
@@ -221,28 +229,25 @@ class _HbSelectState extends State<HbSelect> {
           return HbInput.fromData(
             HbFormData(
               label: widget.data.label,
-              hintText:
-                  widget.data.hintText ??
+              hintText: widget.data.hintText ??
                   HbCommonLocalizations.current.pleaseSelect,
               controller: _textController,
-              prefix:
-                  (widget.data.showIcon)
-                      ? HbIcon(
-                        icon: curSelectItem?.icon,
-                        key: ValueKey(curSelectItem?.icon),
-                        width: 24.w,
-                        defaultIcon: const SizedBox(),
-                      )
-                      : null,
+              prefix: (widget.data.showIcon)
+                  ? HbIcon(
+                      icon: curSelectItem?.icon,
+                      key: ValueKey(curSelectItem?.icon),
+                      width: 24.w,
+                      defaultIcon: const SizedBox(),
+                    )
+                  : null,
               readOnly: widget.data.readOnly ?? true,
               suffix: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Visibility(
-                    visible:
-                        widget.data.readOnly == null
-                            ? false
-                            : !widget.data.readOnly!,
+                    visible: widget.data.readOnly == null
+                        ? false
+                        : !widget.data.readOnly!,
                     child: IconButton(
                       iconSize: 16.w,
                       onPressed: () {
@@ -316,6 +321,7 @@ class _SelectDialog extends StatelessWidget {
             topLeft: Radius.circular(16.w),
             topRight: Radius.circular(16.w),
           ),
+          color: HbColor.bgWhite,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -340,79 +346,75 @@ class _SelectDialog extends StatelessWidget {
             SafeArea(
               minimum: EdgeInsets.only(bottom: 16.w),
               child: Column(
-                children:
-                    items.map((e) {
-                      int index = items.indexOf(e);
-                      return InkWell(
-                        onTap: () {
-                          controller.curIndex.value = index;
-                          controller.selectItem.value = items[index];
-                          Navigator.of(context).pop();
-                          onSelected?.call(index);
-                        },
-                        child: Container(
-                          color:
-                              controller.curIndex.value == index
-                                  ? HbColor.bgGreyLight
-                                  : null,
-                          padding: EdgeInsets.all(16.w),
-                          child: ListenableBuilder(
-                            listenable: Listenable.merge([
-                              controller.curIndex,
-                              controller.selectItem,
-                            ]),
-                            builder: (context, _) {
-                              return Row(
-                                children: [
-                                  showIcon
-                                      ? HbIcon(
-                                        icon: e.icon,
-                                        width: 32.w,
-                                        defaultIcon: const SizedBox(),
-                                      )
-                                      : const SizedBox(),
-                                  SizedBox(width: showIcon ? 12.w : 0.w),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          e.code,
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                        Visibility(
-                                          visible: showDescription,
-                                          child: Text(
-                                            e.description,
-                                            style: TextStyle(
-                                              fontSize: 11.sp,
-                                              height: 20 / 12,
-                                              color: HbColor.textGrey,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                children: items.map((e) {
+                  int index = items.indexOf(e);
+                  return InkWell(
+                    onTap: () {
+                      controller.curIndex.value = index;
+                      controller.selectItem.value = items[index];
+                      Navigator.of(context).pop();
+                      onSelected?.call(index);
+                    },
+                    child: Container(
+                      color: controller.curIndex.value == index
+                          ? HbColor.bgGreyLight
+                          : null,
+                      padding: EdgeInsets.all(16.w),
+                      child: ListenableBuilder(
+                        listenable: Listenable.merge([
+                          controller.curIndex,
+                          controller.selectItem,
+                        ]),
+                        builder: (context, _) {
+                          return Row(
+                            children: [
+                              showIcon
+                                  ? HbIcon(
+                                      icon: e.icon,
+                                      width: 32.w,
+                                      defaultIcon: const SizedBox(),
+                                    )
+                                  : const SizedBox(),
+                              SizedBox(width: showIcon ? 12.w : 0.w),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      e.code,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
-                                  ),
-                                  Visibility(
-                                    visible: controller.curIndex.value == index,
-                                    child: Icon(
-                                      Icons.check_circle_rounded,
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                      size: 20.w,
-                                    ).pl(16.w),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                        ),
-                      );
-                    }).toList(),
+                                    Visibility(
+                                      visible: showDescription,
+                                      child: Text(
+                                        e.description,
+                                        style: TextStyle(
+                                          fontSize: 11.sp,
+                                          height: 20 / 12,
+                                          color: HbColor.textGrey,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Visibility(
+                                visible: controller.curIndex.value == index,
+                                child: Icon(
+                                  Icons.check_circle_rounded,
+                                  color: Theme.of(context).colorScheme.primary,
+                                  size: 20.w,
+                                ).pl(16.w),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
             ),
           ],

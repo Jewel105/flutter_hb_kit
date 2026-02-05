@@ -26,6 +26,7 @@ class HbInput extends HbFormWidget {
     GlobalKey? inputKey, // 输入框的key
     GlobalKey? preKey, // 需要校验的上一个输入框的key，发送验证码会用到
     String? label,
+    String? labelTextInBox,
     String? email,
     Widget? rightLabel,
     Widget? labelWeight,
@@ -75,44 +76,45 @@ class HbInput extends HbFormWidget {
     // 发送邮件
     Function? sendCode,
   }) : data = HbFormData(
-         name: name,
-         show: show,
-         inputKey: inputKey,
-         preKey: preKey,
-         label: label,
-         email: email,
-         rightLabel: rightLabel,
-         labelWeight: labelWeight,
-         controller: controller,
-         preController: preController,
-         initialValue: initialValue,
-         autofocus: autofocus,
-         enabled: enabled,
-         readOnly: readOnly,
-         hintText: hintText,
-         uploadTip: uploadTip,
-         suffix: suffix,
-         prefix: prefix,
-         defaultImage: defaultImage,
-         customWidget: customWidget,
-         maxLength: maxLength,
-         maxLines: maxLines,
-         validatorType: validatorType,
-         validator: validator,
-         textInputAction: textInputAction,
-         keyboardType: keyboardType,
-         onChanged: onChanged,
-         onSelected: onSelected,
-         onFieldSubmitted: onFieldSubmitted,
-         onTap: onTap,
-         onBlur: onBlur,
-         selectItems: selectItems,
-         radioController: radioController,
-         inputFormatters: inputFormatters,
-         showIcon: showIcon,
-         showDescription: showDescription,
-         sendCode: sendCode,
-       );
+          name: name,
+          show: show,
+          inputKey: inputKey,
+          preKey: preKey,
+          label: label,
+          labelTextInBox: labelTextInBox,
+          email: email,
+          rightLabel: rightLabel,
+          labelWeight: labelWeight,
+          controller: controller,
+          preController: preController,
+          initialValue: initialValue,
+          autofocus: autofocus,
+          enabled: enabled,
+          readOnly: readOnly,
+          hintText: hintText,
+          uploadTip: uploadTip,
+          suffix: suffix,
+          prefix: prefix,
+          defaultImage: defaultImage,
+          customWidget: customWidget,
+          maxLength: maxLength,
+          maxLines: maxLines,
+          validatorType: validatorType,
+          validator: validator,
+          textInputAction: textInputAction,
+          keyboardType: keyboardType,
+          onChanged: onChanged,
+          onSelected: onSelected,
+          onFieldSubmitted: onFieldSubmitted,
+          onTap: onTap,
+          onBlur: onBlur,
+          selectItems: selectItems,
+          radioController: radioController,
+          inputFormatters: inputFormatters,
+          showIcon: showIcon,
+          showDescription: showDescription,
+          sendCode: sendCode,
+        );
 
   @override
   State<HbInput> createState() => HbInputState();
@@ -140,8 +142,7 @@ class HbInputState extends State<HbInput> {
       }
     });
     // 密码框需要隐藏
-    _hidePassword =
-        widget.data.validatorType == HbValidatorType.confirmPass ||
+    _hidePassword = widget.data.validatorType == HbValidatorType.confirmPass ||
         widget.data.validatorType == HbValidatorType.password;
     // 初始化值
     _setName(widget.data.initialValue ?? _controller.text);
@@ -286,18 +287,19 @@ class HbInputState extends State<HbInput> {
         children: [
           widget.data.label != null || widget.data.labelWeight != null
               ? Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  widget.data.labelWeight ??
-                      Text(
-                        widget.data.label!,
-                        style:
-                            Theme.of(context).inputDecorationTheme.labelStyle ??
-                            HbStyle.text14,
-                      ),
-                  widget.data.rightLabel ?? const SizedBox(),
-                ],
-              ).pb(8.w)
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    widget.data.labelWeight ??
+                        Text(
+                          widget.data.label!,
+                          style: Theme.of(context)
+                                  .inputDecorationTheme
+                                  .labelStyle ??
+                              HbStyle.text14,
+                        ),
+                    widget.data.rightLabel ?? const SizedBox(),
+                  ],
+                ).pb(8.w)
               : const SizedBox(),
           TextFormField(
             initialValue: widget.data.initialValue,
@@ -313,6 +315,7 @@ class HbInputState extends State<HbInput> {
             maxLength: widget.data.maxLength,
             maxLines: widget.data.maxLines ?? 1,
             decoration: InputDecoration(
+              labelText: widget.data.labelTextInBox,
               prefixIconConstraints: BoxConstraints(
                 maxHeight: 24.w,
                 minHeight: 0,
@@ -321,8 +324,7 @@ class HbInputState extends State<HbInput> {
               isCollapsed: true,
               enabled: widget.data.enabled,
               hintText: widget.data.hintText,
-              hintStyle:
-                  Theme.of(context).inputDecorationTheme.hintStyle ??
+              hintStyle: Theme.of(context).inputDecorationTheme.hintStyle ??
                   HbStyle.text12Grey,
               suffixIconConstraints: BoxConstraints(
                 maxHeight: 24.w,

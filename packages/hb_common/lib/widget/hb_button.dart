@@ -16,6 +16,7 @@ class HbButton extends StatelessWidget {
   final Widget? preIcon;
   final bool collapseInput;
   final double? fontSize;
+  final Widget? textWeight;
 
   const HbButton({
     super.key,
@@ -29,6 +30,7 @@ class HbButton extends StatelessWidget {
     this.collapseInput = true,
     this.radius,
     this.fontSize,
+    this.textWeight,
   });
 
   @override
@@ -46,33 +48,33 @@ class HbButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(radius ?? 40.w),
           ),
         ),
-        onPressed:
-            onTap == null
-                ? null
-                : () {
-                  if (collapseInput) {
-                    FocusManager.instance.primaryFocus?.unfocus();
-                  }
-                  onTap?.call();
-                },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            preIcon != null ? preIcon!.pr(8.w) : const SizedBox(),
-            Text(
-              text,
-              style: TextStyle(
-                color:
-                    onTap == null
+        onPressed: onTap == null
+            ? null
+            : () {
+                if (collapseInput) {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                }
+                onTap?.call();
+              },
+        child: textWeight ??
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                preIcon != null ? preIcon!.pr(8.w) : const SizedBox(),
+                Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: onTap == null
                         ? Theme.of(context).disabledColor
                         : textColor ?? Theme.of(context).colorScheme.onPrimary,
-                fontSize: fontSize ?? 14.sp,
-                fontWeight: FontWeight.w600,
-              ),
+                    fontSize: fontSize ?? 14.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
       ),
     );
   }

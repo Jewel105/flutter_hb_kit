@@ -37,6 +37,7 @@ class HbFormData {
   final String? email;
   final Widget? rightLabel;
   final Widget? labelWeight;
+  final String? labelTextInBox; // 内部的标签
   // 当前文本框的controller
   final TextEditingController? controller;
   // 上一个文本框的controller，用于确认密码校验与上一个密码输入框的密码是否相同
@@ -121,6 +122,7 @@ class HbFormData {
     this.maxLines,
     this.maxLength,
     this.sendCode,
+    this.labelTextInBox,
   });
 }
 

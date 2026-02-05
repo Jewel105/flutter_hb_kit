@@ -10,9 +10,13 @@ typedef CancelFunc = void Function();
 
 class HbDialog {
   // 初始化
-  static TransitionBuilder setup({String? defaultDialogIcon}) {
+  static TransitionBuilder setup(
+      {String? defaultDialogIcon, Widget? loadingWidget}) {
     if (defaultDialogIcon != null) {
       _defaultDialogIcon = defaultDialogIcon;
+    }
+    if (loadingWidget != null) {
+      _loadingWidget = loadingWidget;
     }
     return BotToastInit();
   }
@@ -21,6 +25,7 @@ class HbDialog {
   static NavigatorObserver navigatorObservers = BotToastNavigatorObserver();
 
   static String _defaultDialogIcon = '';
+  static Widget? _loadingWidget;
 
   /// 提示框
   static Future<bool?> openDialog({
@@ -112,8 +117,7 @@ class HbDialog {
                         Expanded(
                           child: HbButton(
                             height: 36.w,
-                            text:
-                                confirmText ??
+                            text: confirmText ??
                                 HbCommonLocalizations.current.confirm,
                             onTap: () {
                               HbNav.pop(arguments: true);
@@ -138,6 +142,7 @@ class HbDialog {
       backgroundColor: HbColor.shadowBlack,
       toastBuilder: (CancelFunc cancel) {
         return loadingWidget ??
+            _loadingWidget ??
             SpinKitFadingCircle(color: HbColor.mainDarkColor);
       },
     );
@@ -226,18 +231,16 @@ class HbDialog {
       title: (context) {
         return Text(title, style: titleStyle);
       },
-      subtitle:
-          subtitle == null
-              ? null
-              : (context) {
-                return Text(subtitle, style: subtitleStyle);
-              },
-      leading:
-          leading == null
-              ? null
-              : (context) {
-                return leading;
-              },
+      subtitle: subtitle == null
+          ? null
+          : (context) {
+              return Text(subtitle, style: subtitleStyle);
+            },
+      leading: leading == null
+          ? null
+          : (context) {
+              return leading;
+            },
       backgroundColor: backgroundColor,
       duration: duration,
       onTap: onTap,
