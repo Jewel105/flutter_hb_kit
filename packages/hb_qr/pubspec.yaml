@@ -1,10 +1,12 @@
 name: hb_qr
-description: "快速扫描与识别二维码, 生成二维码。"
-version: 0.0.2
+description: '快速扫描与识别二维码, 生成二维码。'
+version: 0.0.3
+homepage: https://github.com/Jewel105/flutter_hb_kit.git
+repository: https://github.com/Jewel105/flutter_hb_kit.git
 
 environment:
-  sdk: ">=3.7.0 <4.0.0"
-  flutter: ">=1.17.0"
+  sdk: '>=3.3.0 <4.0.0'
+  flutter: '>=1.17.0'
 
 dependencies:
   flutter:
@@ -12,12 +14,12 @@ dependencies:
   flutter_screenutil: ^5.9.3
   qr_flutter: ^4.1.0
   image_picker: ^1.1.2
-  mobile_scanner: ^7.0.0
+  mobile_scanner: ^5.1.1
   easy_debounce: ^2.0.3
-  permission_handler: ^12.0.0+1
+  permission_handler: ^11.1.0
   flutter_localizations:
     sdk: flutter
-  intl: ">=0.18.0 <0.21.0"
+  intl: '>=0.18.0 <0.21.0'
 
 dev_dependencies:
   flutter_lints: ^5.0.0

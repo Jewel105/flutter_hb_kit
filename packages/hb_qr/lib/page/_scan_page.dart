@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import '../localization/hb_qr_localizations.dart';
 
@@ -26,9 +25,9 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
   StreamSubscription<Object?>? _subscription;
 
   /// When detected a barcode, navigate back with the result
-  void _handleBarcode(BarcodeCapture barcodes) {
+  void _handleBarcode(BarcodeCapture? barcodes) {
     EasyThrottle.throttle('SCAN_HANDLER_TAG', Durations.extralong4, () {
-      Barcode? barcode = barcodes.barcodes.firstOrNull;
+      Barcode? barcode = barcodes?.barcodes.firstOrNull;
       var scanResult = barcode?.rawValue;
       if (scanResult != null) {
         Navigator.of(context).pop(scanResult);
@@ -55,8 +54,8 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (!controller.value.hasCameraPermission) {
-      openAppSettings();
+    if (!controller.value.isInitialized) {
+      // openAppSettings();
       return;
     }
     switch (state) {
@@ -81,7 +80,6 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
       return;
     }
     final BarcodeCapture? barcodes = await controller.analyzeImage(image.path);
-    if (barcodes == null) return;
     _handleBarcode(barcodes);
   }
 
@@ -105,7 +103,7 @@ class _ScanPageState extends State<ScanPage> with WidgetsBindingObserver {
             MobileScanner(
               scanWindow: scanWindow,
               controller: controller,
-              errorBuilder: (context, error) {
+              errorBuilder: (context, error, _) {
                 return ScannerErrorWidget(error: error);
               },
               fit: BoxFit.cover,
@@ -194,11 +192,10 @@ class ScannerOverlay extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final borderPaint =
-        Paint()
-          ..color = Colors.white
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 6.0;
+    final borderPaint = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 6.0;
     _drawLeftTopCorner(canvas, borderPaint);
     _drawRightTopCorner(canvas, borderPaint);
     _drawLeftBottomCorner(canvas, borderPaint);

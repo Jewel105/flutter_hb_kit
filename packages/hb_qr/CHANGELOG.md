@@ -1,3 +1,7 @@
+## 0.0.3
+### Fixed
+- Support lower Dart versions
+
 ## 0.0.2
 ### Fixed
 - Fixed QR code scanning not working
